@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, FormEvent } from "react";
+import emailjs from '@emailjs/browser';
 import { 
   ChevronRight, 
   ShieldCheck, 
@@ -86,13 +87,42 @@ export default function App() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Artificial delay for UX simulation
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
+    // EmailJS Configuration
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = "template_239s5yz";
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    try {
+      if (serviceId && publicKey) {
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            to_name: "Admin",
+            from_name: formData.name,
+            customer_name: formData.name,
+            customer_email: formData.email,
+            customer_phone: formData.phone,
+            customer_address: `${formData.address}, ${formData.state}`,
+            product_name: selectedBundle.name,
+            total_price: `₦${selectedBundle.price.toLocaleString()}`,
+            message: `New order for ${selectedBundle.name} from ${formData.name}. Phone: ${formData.phone}. State: ${formData.state}`
+          },
+          publicKey
+        );
+      } else {
+        console.warn("EmailJS Service ID or Public Key missing. Ensure VITE_EMAILJS_SERVICE_ID and VITE_EMAILJS_PUBLIC_KEY are set in your environment.");
+      }
+    } catch (error) {
+      console.error("Failed to send order email:", error);
+    }
+
+    // Artificial delay for UX
+    await new Promise(resolve => setTimeout(resolve, 1000));
     setOrderComplete(true);
     setIsSubmitting(false);
 
-    const whatsappMessage = `AutoScan Pro Order:\n\n` +
+    const whatsappMessage = `Easy Shop Order Confirmation:\n\n` +
       `Product: ${selectedBundle.name}\n` +
       `Total: ₦${selectedBundle.price.toLocaleString()}\n\n` +
       `Customer: ${formData.name}\n` +
@@ -269,7 +299,7 @@ export default function App() {
                  </p>
               </div>
               <button 
-                onClick={() => setShowCommitmentModal(true)}
+                onClick={() => document.getElementById('checkout')?.scrollIntoView({ behavior: 'smooth' })}
                 className="mt-10 px-10 py-5 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-2xl hover:bg-slate-800 transition-all flex items-center gap-3"
               >
                 ORDER NOW <ChevronRight className="w-4 h-4" />
@@ -326,7 +356,7 @@ export default function App() {
                     </div>
                  </div>
                  <button 
-                   onClick={() => setShowCommitmentModal(true)}
+                   onClick={() => document.getElementById('checkout')?.scrollIntoView({ behavior: 'smooth' })}
                    className="mt-6 px-10 py-5 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center gap-3 w-fit"
                  >
                    CLAIM YOUR SCANNER <ChevronRight className="w-4 h-4" />
@@ -353,7 +383,7 @@ export default function App() {
                  ))}
               </ul>
               <button 
-                onClick={() => setShowCommitmentModal(true)}
+                onClick={() => document.getElementById('checkout')?.scrollIntoView({ behavior: 'smooth' })}
                 className="mt-8 px-10 py-5 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-2xl hover:bg-slate-800 transition-all flex items-center gap-3 w-fit"
               >
                 FIX YOUR CAR NOW <ChevronRight className="w-4 h-4" />
@@ -730,7 +760,7 @@ export default function App() {
                 <div className="space-y-4">
                   <div className="text-left space-y-3 mb-8">
                     <div className="flex items-center gap-2 text-[10px] font-bold text-slate-300">
-                      <CheckCircle2 className="w-3 h-3 text-blue-600" /> Free Delivery Included
+                      <CheckCircle2 className="w-3 h-3 text-blue-600" /> Free Shipping Included
                     </div>
                     <div className="flex items-center gap-2 text-[10px] font-bold text-slate-300">
                       <CheckCircle2 className="w-3 h-3 text-blue-600" /> Lifetime App Access
@@ -836,7 +866,7 @@ export default function App() {
                     <div>
                       <h5 className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-1">Payment Notice</h5>
                       <p className="text-sm text-blue-900 font-medium leading-relaxed font-sans uppercase tracking-tight">
-                         Pay on delivery is <b>ONLY</b> available for <b>Lagos</b> and <b>Abuja</b>. Orders from <b>Rivers</b> require confirmation before delivery.
+                         Pay on delivery is <b>ONLY</b> available for <b>Lagos</b> and <b>Abuja</b>. Orders from <b>Rivers</b> require confirmation before shipping.
                       </p>
                     </div>
                  </div>
@@ -880,7 +910,7 @@ export default function App() {
               </div>
               <h3 className="text-4xl font-display font-black mb-6 tracking-tighter leading-none italic uppercase">Are you ready <br /> to receive?</h3>
               <p className="text-lg text-slate-500 font-medium leading-relaxed mb-10">
-                To prevent wasted delivery costs, please confirm you will be <span className="text-red-600 font-black">available in the next 24 to 48 hours</span> to receive your call and package.
+                To prevent wasted shipping costs, please confirm you will be <span className="text-red-600 font-black">available in the next 24 to 48 hours</span> to receive your call and package.
               </p>
               
               <div className="space-y-4">
@@ -933,7 +963,7 @@ export default function App() {
                 </p>
                 <div className="space-y-4">
                   <button 
-                    onClick={() => { setShowExitPopup(false); setPage('home'); setTimeout(() => { document.getElementById('checkout')?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
+                    onClick={() => { setShowExitPopup(false); setPage('home'); setTimeout(() => { document.getElementById('order')?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
                     className="w-full py-6 bg-blue-600 text-white rounded-full font-black text-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/30 active:scale-95"
                   >
                     CLAIM MY VOUCHER
