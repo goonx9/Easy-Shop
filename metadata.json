@@ -2,5 +2,5 @@
   "name": "AutoScan Pro - Premium Bluetooth Car Scanner",
   "description": "High-conversion landing page for the next-generation AutoScan Pro Bluetooth Bluetooth diagnostic tool.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
