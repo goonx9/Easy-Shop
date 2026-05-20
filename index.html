@@ -4,178 +4,407 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Easy Shop - Tools for the Smart Driver</title>
+    
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    
+    <!-- Preload Hero Assets for LCP -->
+    <link rel="preload" as="image" href="https://res.cloudinary.com/dmy2yiax9/image/upload/v1777581028/c74b6fce-72e5-4d66-9bcc-fbc25003e76a.png" fetchpriority="high">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb', // blue-600
+                        secondary: '#1e40af', // blue-800
+                        text: '#0f172a', // slate-900
+                        body: '#334155', // slate-700
+                        background: '#ffffff',
+                        complement: '#f8fafc', // slate-50
+                        border: '#e2e8f0', // slate-200
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet"></noscript>
+    
     <style>
         :root {
-            --font-display: "Playfair Display", serif;
-            --font-sans: "Plus Jakarta Sans", sans-serif;
-            --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
-            --shadow-intense: 0 30px 60px -15px rgba(59, 130, 246, 0.12);
+            --color-primary: #2563eb;
+            --color-secondary: #1e40af;
+            --color-text: #0f172a;
+            --color-body: #334155;
+            --color-background: #ffffff;
+            --color-complement: #f8fafc;
+            --color-border: #e2e8f0;
         }
 
         body {
-            font-family: "Plus Jakarta Sans", sans-serif;
-            color: #1e293b;
-            background-color: white;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        .font-display { font-family: "Playfair Display", serif; }
-        .font-sans { font-family: "Plus Jakarta Sans", sans-serif; }
-
-        .hook-text {
-            color: #2563eb;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-size: 10px;
-            margin-bottom: 1rem;
+        .hero-section {
+            background-color: #0f172a; /* deep slate-900 */
+            min-height: 80vh;
         }
 
-        .btn-primary {
-            background-color: #2563eb;
-            color: white;
-            padding: 1.25rem 2.5rem;
-            border-radius: 9999px;
-            font-weight: 900;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: all 0.3s;
-            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
-            display: inline-block;
+        /* Order Notification Styles */
+        #order-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .btn-primary:hover {
-            background-color: #0f172a;
+        #order-notification.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
-        .btn-primary:active {
-            transform: scale(0.95);
+        
+        /* Optimization for Mobile Browser views */
+        @supports (-webkit-touch-callout: none) {
+            .min-h-screen { min-height: -webkit-fill-available; }
         }
     </style>
 </head>
 <body class="bg-white min-h-screen">
-    <!-- Navigation Area -->
-    <section class="bg-white py-12 px-8 border-b border-slate-50">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-600/10 scale-90">
-                    <i data-lucide="car" class="w-7 h-7"></i>
-                </div>
-                <span class="text-3xl font-display font-black tracking-tighter text-slate-900 uppercase">Easy Shop</span>
+    <!-- Order Notification -->
+    <div id="order-notification" class="bg-white/95 backdrop-blur-xl shadow-[0_20px_50px_rgba(37,99,235,0.15)] rounded-2xl p-4 border border-blue-100 flex items-center gap-4 max-w-[320px]">
+        <div class="w-12 h-12 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white shadow-lg">
+            <i data-lucide="shopping-bag" size="20"></i>
+        </div>
+        <div>
+            <p class="text-[12px] text-slate-900 font-medium leading-snug" id="notif-text">Adebayo from Lagos ordered AutoScan Pro™</p>
+            <p class="text-[10px] text-blue-500 font-black uppercase tracking-widest mt-1">Just now</p>
+        </div>
+    </div>
+
+    <!-- Exit Intent Popup -->
+    <div id="exit-popup" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); z-index: 10000; align-items: center; justify-content: center; padding: 24px;">
+        <div class="bg-white rounded-[3rem] p-10 max-w-lg w-full text-center relative shadow-3xl">
+            <button id="close-exit" class="absolute top-6 right-6 text-gray-400 hover:text-blue-600 transition-colors">
+                <i data-lucide="x" size="24"></i>
+            </button>
+            <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-6">
+                <i data-lucide="gift" size="40"></i>
             </div>
-            <a href="scanner.html" class="text-xs font-black uppercase tracking-[0.2em] text-slate-400 hover:text-blue-600 transition-colors flex items-center gap-2">
-                Our Products <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            <h2 class="text-3xl font-serif font-black mb-4 text-slate-900">Wait! Special Offer</h2>
+            <p class="text-lg opacity-70 mb-8 font-medium text-slate-700">Wait — get <span class="text-blue-600 font-black">₦2,500 OFF</span> your AutoScan Pro order right now. Don't let mechanics scam you!</p>
+            <button onclick="window.location.href='scanner.html#checkout'; document.getElementById('exit-popup').style.display = 'none';" class="w-full py-5 bg-blue-600 text-white rounded-full font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">Claim My Discount</button>
+            <p class="mt-4 text-[10px] text-gray-400 uppercase tracking-widest cursor-pointer hover:text-gray-600" onclick="document.getElementById('exit-popup').style.display = 'none';">No thanks, I'll pay full price later</p>
+        </div>
+    </div>
+
+    <!-- Warning Banner -->
+    <div class="bg-red-600 text-white py-4 px-6 text-center sticky top-0 z-[110] shadow-xl">
+        <p class="text-[11px] md:text-xs font-black uppercase tracking-[0.15em]">
+            ⚠️ NIGERIAN DRIVER ALERT: Read this before your next mechanic workshop visit.
+        </p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white/95 backdrop-blur-md border-b border-slate-100 px-6 py-5 md:px-12 sticky top-[48px] z-[100] shadow-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-600/10">
+                    <i data-lucide="car" size="22"></i>
+                </div>
+                <span class="text-xl md:text-2xl font-serif font-black tracking-tight uppercase text-slate-900">EASY SHOP</span>
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="scanner.html" class="text-[10px] font-black tracking-[0.2em] uppercase hidden md:block text-slate-600 hover:text-blue-600 transition-colors">Scanner Deal</a>
+                <button onclick="window.location.href='scanner.html'" class="px-6 py-3 rounded-full font-bold transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-lg flex items-center justify-center gap-3 uppercase tracking-[0.2em] text-[10px] bg-blue-600 text-white">
+                    Get Scanner
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[80vh] flex items-center pt-20 pb-20 overflow-hidden bg-slate-900 text-white">
+        <div class="absolute inset-0 pointer-events-none opacity-10">
+            <div class="absolute top-10 left-10 w-72 h-72 bg-blue-600 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-800 rounded-full blur-[150px]"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto z-10 relative px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8 text-left">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-blue-600/25 border border-blue-500/30 text-blue-400 font-black text-[9px] tracking-widest uppercase">
+                    #1 Automotive Tech in Nigeria
+                </div>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-black leading-[0.95] tracking-tighter">
+                    Tools for the <br><span class="text-blue-500 italic uppercase">Smart Driver.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 font-medium leading-relaxed">
+                    Our medical-grade diagnostic tools put the power back in your hands. Save your engine, scan faults yourself, and stop greedy workshop overcharges.
+                </p>
+                <div class="flex flex-wrap gap-6 items-center">
+                    <button onclick="window.location.href='scanner.html'" class="px-10 py-5 bg-blue-600 text-white rounded-full font-black uppercase tracking-widest hover:bg-blue-700 transition-all flex items-center gap-3 shadow-xl shadow-blue-600/25">
+                        EXPLORE OUR TOOLS <i data-lucide="arrow-right" size="16"></i>
+                    </button>
+                    <div class="flex items-center gap-3 text-blue-400 font-bold text-sm bg-white/5 py-3 px-6 rounded-full border border-white/10">
+                        <span class="flex text-yellow-500">
+                            <i data-lucide="star" size="14" fill="currentColor"></i>
+                            <i data-lucide="star" size="14" fill="currentColor"></i>
+                            <i data-lucide="star" size="14" fill="currentColor"></i>
+                            <i data-lucide="star" size="14" fill="currentColor"></i>
+                            <i data-lucide="star" size="14" fill="currentColor"></i>
+                        </span>
+                        4,850+ Drivers Safe
+                    </div>
+                </div>
+            </div>
+            <div class="relative flex justify-center">
+                <div class="absolute inset-0 bg-blue-600/10 rounded-[4rem] blur-3xl"></div>
+                <img 
+                  src="https://res.cloudinary.com/dmy2yiax9/image/upload/v1777581028/c74b6fce-72e5-4d66-9bcc-fbc25003e76a.png" 
+                  alt="AutoScan Pro Diagnostic Scanner" 
+                  class="w-full max-w-[420px] object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-700"
+                  referrerpolicy="no-referrer"
+                />
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Prop Badges -->
+    <section class="py-16 bg-white border-y border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 items-center text-center">
+            <div class="flex flex-col items-center gap-3">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+                    <i data-lucide="shield-check" size="26"></i>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-widest text-slate-600">Secure Payment</span>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+                    <i data-lucide="award" size="26"></i>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-widest text-slate-600">Clinical Grade Tech</span>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+                    <i data-lucide="truck" size="26"></i>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-widest text-slate-600">Nationwide Shipping</span>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+                    <i data-lucide="wrench" size="26"></i>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-widest text-slate-600">DIY Mechanic Protection</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase Collection -->
+    <section class="py-24 px-6 md:px-12 bg-slate-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 space-y-4">
+                <p class="font-black text-blue-600 uppercase text-[10px] tracking-[0.4em]">Our Core Diagnostic Solution</p>
+                <h2 class="text-4xl md:text-6xl font-serif font-black text-slate-900">Featured Innovation</h2>
+            </div>
+
+            <!-- Custom Unified Product Card -->
+            <a href="scanner.html" class="flex flex-col md:flex-row items-center gap-12 p-8 md:p-12 bg-white border border-slate-100 shadow-xl rounded-[3.5rem] group cursor-pointer transition-all hover:shadow-2xl hover:bg-slate-50/50">
+                <div class="w-full md:w-1/3 aspect-square bg-slate-50 rounded-[2.5rem] overflow-hidden relative flex items-center justify-center p-8 group-hover:bg-blue-50 transition-colors">
+                    <img 
+                      src="https://res.cloudinary.com/dmy2yiax9/image/upload/v1777581028/c74b6fce-72e5-4d66-9bcc-fbc25003e76a.png" 
+                      alt="AutoScan Pro Bluetooth Scanner"
+                      class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
+                      referrerpolicy="no-referrer"
+                    />
+                </div>
+                <div class="flex-1 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <span class="px-4 py-1.5 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest">Available</span>
+                        <span class="text-xs font-bold text-slate-400">100% Lifetime Diagnostics Guarantee</span>
+                    </div>
+                    <h3 class="text-4xl md:text-5xl font-serif font-black text-slate-900 italic">AutoScan Pro™</h3>
+                    <p class="text-lg md:text-xl text-slate-500 font-medium leading-relaxed">
+                        Optimized for Nigerian environments and fuel conditions. Instantly read trouble codes, turn off the check engine light, and check engine real-time diagnostics via Bluetooth on your Android or iPhone device.
+                    </p>
+                    <div class="flex items-baseline gap-3">
+                        <span class="text-3xl font-black text-blue-600">₦28,500</span>
+                        <span class="text-sm line-through text-slate-400 font-bold">₦45,000</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-blue-600 font-black text-sm uppercase tracking-widest pt-4">
+                        CLAIM YOUR AUTO CARD DECODER <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </div>
+                </div>
             </a>
         </div>
     </section>
 
-    <!-- Hero Section -->
-    <section class="bg-slate-900 py-32 px-8 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-600/5 blur-[120px] -z-0"></div>
-        <div class="max-w-6xl mx-auto relative z-10 text-center md:text-left">
-            <div class="max-w-3xl">
-                <div class="hook-text !text-blue-400">Mission: Empowering Nigerian Drivers</div>
-                <h1 class="text-6xl md:text-9xl font-display font-black text-white mb-10 leading-[0.85] tracking-tighter">
-                    Tools for the <br> <span class="italic text-blue-500 uppercase underline underline-offset-8 decoration-white/10">Smart Driver.</span>
-                </h1>
-                <p class="text-xl md:text-2xl text-slate-400 font-medium leading-relaxed max-w-2xl mb-16">
-                    Our clinical-grade diagnostic tools put power back into your hands, saving you money and stopping mechanic overcharges across Nigeria.
-                </p>
-                <a href="scanner.html" class="btn-primary">
-                    EXPLORE OUR TOOLS
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Product Display -->
-    <section class="bg-white py-32 px-8">
+    <!-- Testimonials / Dynamic Social Proof -->
+    <section class="py-24 px-6 md:px-12 bg-white">
         <div class="max-w-6xl mx-auto">
-            <div class="mb-32">
-                <div class="hook-text">THE COLLECTION</div>
-                <h2 class="text-5xl font-display font-black tracking-tight mb-16 text-slate-900">Our Products</h2>
-                
-                <a href="scanner.html" class="flex flex-col md:flex-row items-center gap-12 p-12 bg-slate-50 border-4 border-white shadow-soft rounded-[3rem] group cursor-pointer transition-all hover:bg-slate-50/50">
-                    <div class="w-full md:w-1/3 aspect-square bg-white rounded-[2.5rem] overflow-hidden relative flex items-center justify-center p-8 group-hover:bg-blue-50 transition-colors">
-                        <img 
-                          src="https://res.cloudinary.com/dmy2yiax9/image/upload/v1777581028/c74b6fce-72e5-4d66-9bcc-fbc25003e76a.png" 
-                          alt="AutoScan Pro Device"
-                          class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
-                          referrerpolicy="no-referrer"
-                        />
-                    </div>
-                    <div class="flex-1 space-y-6">
-                        <div class="flex items-center gap-3">
-                            <span class="px-4 py-1.5 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest">Available</span>
-                            <span class="text-xs font-bold text-slate-400">Clinical Grade Tech</span>
-                        </div>
-                        <h3 class="text-4xl font-display font-black text-slate-900 italic">AutoScan Pro™</h3>
-                        <p class="text-xl text-slate-500 font-medium leading-relaxed">
-                            Optimized for West African fuel conditions. Read engine faults, clear check engine lights, and monitor fuel consumption in real-time.
-                        </p>
-                        <div class="flex items-center gap-2 text-blue-600 font-black text-sm uppercase tracking-widest pt-4">
-                            Shop scanner now <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                </a>
+            <div class="text-center mb-16 space-y-4">
+                <p class="font-black text-blue-600 uppercase text-[10px] tracking-[0.4em]">Tested & Approved by Lagos & Abuja Drivers</p>
+                <h2 class="text-4xl md:text-5xl font-serif font-black text-slate-900">What they are saying</h2>
             </div>
-
-            <div class="h-px bg-slate-100 mb-32"></div>
-
-            <!-- Reviews -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
-                <div class="space-y-6">
-                    <div class="flex gap-1">
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="p-10 bg-slate-50 rounded-[3rem] border border-slate-100 space-y-6">
+                    <div class="flex items-center gap-1 text-yellow-500">
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
                     </div>
-                    <p class="text-lg font-medium italic text-slate-800 leading-relaxed">"I carried this thing to my mechanic just to test. His computer said one thing, my AutoScan showed the REAL issue. I saved ₦40k that day."</p>
-                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Seyi V.</p>
+                    <p class="font-medium text-slate-700 leading-relaxed italic">"I carried this thing to my mechanic just to test. His computer said one thing, my AutoScan showed the REAL issue. I saved ₦40,000 that day."</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Seyi V., Lagos</p>
                 </div>
-                <div class="space-y-6">
-                    <div class="flex gap-1">
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
+                <!-- Review 2 -->
+                <div class="p-10 bg-slate-50 rounded-[3rem] border border-slate-100 space-y-6">
+                    <div class="flex items-center gap-1 text-yellow-500">
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
                     </div>
-                    <p class="text-lg font-medium italic text-slate-800 leading-relaxed">"Best ₦25,000 I've spent on my car. Now I clear my check engine light myself in 2 seconds."</p>
-                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">John O.</p>
+                    <p class="font-medium text-slate-700 leading-relaxed italic">"Best ₦28k spent on my Corolla. Now I clear the check engine lights myself in 2 seconds instead of waiting for a guy to bring his scanner."</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">John O., Abuja</p>
                 </div>
-                <div class="space-y-6">
-                    <div class="flex gap-1">
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
-                        <i data-lucide="star" class="w-3 h-3 fill-slate-900 text-slate-900"></i>
+                <!-- Review 3 -->
+                <div class="p-10 bg-slate-50 rounded-[3rem] border border-slate-100 space-y-6">
+                    <div class="flex items-center gap-1 text-yellow-500">
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
+                        <i data-lucide="star" size="16" fill="currentColor"></i>
                     </div>
-                    <p class="text-lg font-medium italic text-slate-800 leading-relaxed">"Delivery to Lekki was fast. The setup was very simple on my iPhone. Highly recommended."</p>
-                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Amaka E.</p>
+                    <p class="font-medium text-slate-700 leading-relaxed italic">"Delivery to Lekki was incredibly fast. The setup is extremely clear on my iPhone. Highly recommended."</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Amaka E., Lekki</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-20 text-center border-t border-slate-50">
-        <div class="flex items-center gap-2 justify-center mb-8 opacity-20 grayscale">
-            <i data-lucide="car" class="w-5 h-5 text-slate-900"></i>
-            <span class="text-lg font-display font-black tracking-tighter uppercase text-slate-900">Easy Shop</span>
+    <!-- Q&A Area -->
+    <section class="py-24 px-6 md:px-12 bg-slate-50">
+        <div class="max-w-4xl mx-auto space-y-16">
+            <div class="text-center">
+                <p class="font-black text-blue-600 uppercase text-[10px] tracking-widest mb-3">FAQ</p>
+                <h2 class="text-4xl md:text-5xl font-serif font-black">Common Questions</h2>
+            </div>
+            
+            <div class="grid gap-8">
+                <div class="p-8 bg-white border border-slate-100 rounded-3xl">
+                    <h4 class="text-lg font-black mb-3 text-slate-900">Will this diagnostic scanner work with my car?</h4>
+                    <p class="text-slate-600 leading-relaxed">Yes! AutoScan Pro works perfectly on all cars made from 1996 to date (e.g. Toyota, Honda, Nissan, Lexus, Ford, Mercedes, etc.) equipped with an OBDII port.</p>
+                </div>
+                <div class="p-8 bg-white border border-slate-100 rounded-3xl">
+                    <h4 class="text-lg font-black mb-3 text-slate-900">Are there any monthly subscription fees?</h4>
+                    <p class="text-slate-600 leading-relaxed">No! There are absolutely no subscription fees. The scanner includes lifetime access to our free app downloadable from Google Play and Apple App Stores.</p>
+                </div>
+                <div class="p-8 bg-white border border-slate-100 rounded-3xl">
+                    <h4 class="text-lg font-black mb-3 text-slate-900">How does shipping work?</h4>
+                    <p class="text-slate-600 leading-relaxed">We ship for FREE to all states in Nigeria. Cash-on-delivery is supported in major metropolitan cities (Lagos, Abuja, Rivers).</p>
+                </div>
+            </div>
         </div>
-        <p class="text-[10px] font-black uppercase tracking-[0.5em] text-slate-200">© 2024 NIGERIA AUTOMOTIVE INTELLIGENCE</p>
+    </section>
+
+    <!-- Trust Brand Footer -->
+    <footer class="py-20 px-6 md:px-12 bg-white border-t border-slate-100">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-12">
+            <div class="md:col-span-2 space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                        <i data-lucide="car" size="20"></i>
+                    </div>
+                    <span class="text-2xl font-serif font-black tracking-tight text-slate-900">EASY SHOP</span>
+                </div>
+                <p class="text-slate-500 leading-relaxed max-w-sm">
+                    Providing high-grade diagnostic automotive devices directly to Nigerian consumers. No intermediaries, no lies, just pure truth.
+                </p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-black text-[11px] uppercase tracking-[0.3em] text-slate-400">Product</h4>
+                <ul class="space-y-2 font-bold text-sm text-slate-600">
+                    <li><a href="scanner.html" class="hover:text-blue-600">AutoScan Pro™ Unit</a></li>
+                    <li><a href="scanner.html#checkout" class="hover:text-blue-600">Bundle Selection</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-black text-[11px] uppercase tracking-[0.3em] text-slate-400">Contact & Support</h4>
+                <p class="font-bold text-sm text-slate-600 flex items-center gap-2">
+                    <i data-lucide="message-circle" size="16" class="text-blue-600"></i> +234 803 994 0408
+                </p>
+            </div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto mt-16 pt-8 border-t border-slate-100 text-center text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">
+            © 2026 NIGERIAN AUTOMOTIVE INTELLIGENCE | ALL RIGHTS RESERVED.
+        </div>
     </footer>
 
+    <!-- Deferred Scripts for Performance -->
+    <script src="https://unpkg.com/lucide@latest" defer onload="lucide.createIcons();"></script>
     <script>
-        lucide.createIcons();
+        // Exit popup logic
+        let exitShown = sessionStorage.getItem('exitPopupShown') === 'true';
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 10 && !exitShown) {
+                document.getElementById('exit-popup').style.display = 'flex';
+                exitShown = true;
+                sessionStorage.setItem('exitPopupShown', 'true');
+            }
+        });
+
+        document.getElementById('close-exit').addEventListener('click', () => {
+            document.getElementById('exit-popup').style.display = 'none';
+        });
+
+        // Shared Order Notification Logic
+        const names = ["Adebayo", "Seyi", "Chinelo", "Folake", "Emeka", "Aisha", "Blessing", "Chidi", "Obinna", "Funke", "Ngozi", "Amaka", "Ifeanyi", "Nneka", "Yusuf", "Daniel", "Tunde", "Segun", "Kunle", "Femi", "Yemi", "Wale", "Bayo", "Sola", "Ronke", "Yinka", "Toyin", "Seyi", "Dayo", "Chioma", "Mustapha"];
+        const states = ["Lagos", "Ikeja", "Lekki", "Victoria Island", "Surulere", "Ajah", "Ikorodu", "Maryland", "Ikoyi", "Gbagada", "Yaba", "Abuja", "Wuse", "Garki", "Maitama", "Port Harcourt"];
+        const prods = ["1x AutoScan Unit", "2 Units (Most Popular)", "3 Units (Best Value)"];
+
+        function triggerNotif() {
+            const el = document.getElementById('order-notification');
+            const txt = document.getElementById('notif-text');
+            if (!el || !txt) return;
+
+            const name = names[Math.floor(Math.random() * names.length)];
+            const state = states[Math.floor(Math.random() * states.length)];
+            const prod = prods[Math.floor(Math.random() * prods.length)];
+
+            txt.innerHTML = `<strong>${name}</strong> from <strong>${state}</strong> ordered <strong>${prod}</strong>`;
+            
+            el.classList.add('show');
+            setTimeout(() => {
+                el.classList.remove('show');
+            }, 3500);
+        }
+
+        setInterval(triggerNotif, 12000);
+        setTimeout(triggerNotif, 2000);
     </script>
 </body>
 </html>
-
-

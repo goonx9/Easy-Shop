@@ -8,28 +8,41 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3000;
 
-// Request logging middleware
+// Log incoming requests for dev debugging
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
-// Explicit routes for index and scanner
+// Explicit routes for major HTML pages
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/index', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/index.html', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/scanner', (req, res) => {
+  res.sendFile(path.join(__dirname, 'scanner.html'));
 });
 
 app.get('/scanner.html', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'scanner.html'));
+  res.sendFile(path.join(__dirname, 'scanner.html'));
 });
 
-// Serve anything else from root
+// Serve static files from root directory
 app.use(express.static(__dirname));
 
+// Fallback to index.html for any other unmatched routes
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on http://0.0.0.0:${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });
