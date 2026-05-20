@@ -35,6 +35,22 @@ app.get('/scanner.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'scanner.html'));
 });
 
+app.get('/jumpstarter', (req, res) => {
+  res.sendFile(path.join(__dirname, 'jumpstarter.html'));
+});
+
+app.get('/jumpstarter.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'jumpstarter.html'));
+});
+
+app.get('/carjack', (req, res) => {
+  res.sendFile(path.join(__dirname, 'carjack.html'));
+});
+
+app.get('/carjack.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'carjack.html'));
+});
+
 // Serve static files from root directory
 app.use(express.static(__dirname));
 

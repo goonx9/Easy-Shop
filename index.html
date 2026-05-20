@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easy Shop - Tools for the Smart Driver</title>
+    <title>Easy Shop - Essential Driving Intelligence & Roadside Protection Tools</title>
     
     <!-- Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://res.cloudinary.com">
     <link rel="preconnect" href="https://unpkg.com">
-    <link rel="dns-prefetch" href="https://res.cloudinary.com">
-    
-    <!-- Preload Hero Assets for LCP -->
-    <link rel="preload" as="image" href="https://res.cloudinary.com/dmy2yiax9/image/upload/v1777581028/c74b6fce-72e5-4d66-9bcc-fbc25003e76a.png" fetchpriority="high">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -38,9 +34,7 @@
         }
     </script>
 
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -58,11 +52,6 @@
             color: var(--color-text);
             font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
-        }
-
-        .hero-section {
-            background-color: #0f172a; /* deep slate-900 */
-            min-height: 80vh;
         }
 
         /* Order Notification Styles */
@@ -90,17 +79,17 @@
 </head>
 <body class="bg-white min-h-screen">
     <!-- Order Notification -->
-    <div id="order-notification" class="bg-white/95 backdrop-blur-xl shadow-[0_20px_50px_rgba(37,99,235,0.15)] rounded-2xl p-4 border border-blue-100 flex items-center gap-4 max-w-[320px]">
-        <div class="w-12 h-12 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white shadow-lg">
+    <div id="order-notification" class="bg-white/95 backdrop-blur-xl shadow-[0_20px_50px_rgba(15,23,42,0.15)] rounded-2xl p-4 border border-blue-50 flex items-center gap-4 max-w-[320px]">
+        <div class="w-12 h-12 rounded-full bg-slate-900 flex-shrink-0 flex items-center justify-center text-white shadow-lg" id="notif-badge-color">
             <i data-lucide="shopping-bag" size="20"></i>
         </div>
         <div>
-            <p class="text-[12px] text-slate-900 font-medium leading-snug" id="notif-text">Adebayo from Lagos ordered AutoScan Pro™</p>
+            <p class="text-[12px] text-slate-900 font-medium leading-snug animate-pulse" id="notif-text">Adebayo ordered AutoScan Pro™</p>
             <p class="text-[10px] text-blue-500 font-black uppercase tracking-widest mt-1">Just now</p>
         </div>
     </div>
 
-    <!-- Exit Intent Popup -->
+    <!-- Exit Intent Popup (Generic Boutique Catalog Voucher) -->
     <div id="exit-popup" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); z-index: 10000; align-items: center; justify-content: center; padding: 24px;">
         <div class="bg-white rounded-[3rem] p-10 max-w-lg w-full text-center relative shadow-3xl">
             <button id="close-exit" class="absolute top-6 right-6 text-gray-400 hover:text-blue-600 transition-colors">
@@ -109,9 +98,9 @@
             <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-6">
                 <i data-lucide="gift" size="40"></i>
             </div>
-            <h2 class="text-3xl font-serif font-black mb-4 text-slate-900">Wait! Special Offer</h2>
-            <p class="text-lg opacity-70 mb-8 font-medium text-slate-700">Wait — get <span class="text-blue-600 font-black">₦2,500 OFF</span> your AutoScan Pro order right now. Don't let mechanics scam you!</p>
-            <button onclick="window.location.href='scanner.html#checkout'; document.getElementById('exit-popup').style.display = 'none';" class="w-full py-5 bg-blue-600 text-white rounded-full font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">Claim My Discount</button>
+            <h2 class="text-3xl font-serif font-black mb-4 text-slate-900">Wait! Driver Bonus Voucher</h2>
+            <p class="text-lg opacity-70 mb-8 font-medium text-slate-700">Don't take risks on solitary roads. Get <span class="text-blue-600 font-black">₦3,000 SHOP OFF</span> your order of any smart tool today.</p>
+            <button onclick="document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' }); document.getElementById('exit-popup').style.display = 'none';" class="w-full py-5 bg-blue-600 text-white rounded-full font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">Claim My Discount & View Tools</button>
             <p class="mt-4 text-[10px] text-gray-400 uppercase tracking-widest cursor-pointer hover:text-gray-600" onclick="document.getElementById('exit-popup').style.display = 'none';">No thanks, I'll pay full price later</p>
         </div>
     </div>
@@ -119,7 +108,7 @@
     <!-- Warning Banner -->
     <div class="bg-red-600 text-white py-4 px-6 text-center sticky top-0 z-[110] shadow-xl">
         <p class="text-[11px] md:text-xs font-black uppercase tracking-[0.15em]">
-            ⚠️ NIGERIAN DRIVER ALERT: Read this before your next mechanic workshop visit.
+            ⚠️ NIGERIAN DRIVER ALERT: Protect your car from bad fuel, dead batteries, and road hazards.
         </p>
     </div>
 
@@ -127,43 +116,45 @@
     <nav class="bg-white/95 backdrop-blur-md border-b border-slate-100 px-6 py-5 md:px-12 sticky top-[48px] z-[100] shadow-sm">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-600/10">
-                    <i data-lucide="car" size="22"></i>
+                <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white shadow-lg">
+                    <i data-lucide="shield-alert" size="20"></i>
                 </div>
                 <span class="text-xl md:text-2xl font-serif font-black tracking-tight uppercase text-slate-900">EASY SHOP</span>
             </a>
-            <div class="flex items-center gap-6">
-                <a href="scanner.html" class="text-[10px] font-black tracking-[0.2em] uppercase hidden md:block text-slate-600 hover:text-blue-600 transition-colors">Scanner Deal</a>
-                <button onclick="window.location.href='scanner.html'" class="px-6 py-3 rounded-full font-bold transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-lg flex items-center justify-center gap-3 uppercase tracking-[0.2em] text-[10px] bg-blue-600 text-white">
-                    Get Scanner
-                </button>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="scanner.html" class="text-[10px] font-black tracking-[0.2em] uppercase text-slate-600 hover:text-blue-600 transition-colors">1. Diagnostic Scanner</a>
+                <a href="jumpstarter.html" class="text-[10px] font-black tracking-[0.2em] uppercase text-slate-600 hover:text-amber-500 transition-colors">2. Battery Jump Starter</a>
+                <a href="carjack.html" class="text-[10px] font-black tracking-[0.2em] uppercase text-slate-600 hover:text-emerald-500 transition-colors">3. 5-in-1 Hydraulic Jack</a>
             </div>
+            <button onclick="document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' })" class="px-6 py-3 rounded-full font-bold transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-md flex items-center justify-center gap-2 uppercase tracking-[0.15em] text-[9px] bg-slate-950 text-white">
+                View Smart Tools <i data-lucide="chevron-right" size="12"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-[80vh] flex items-center pt-20 pb-20 overflow-hidden bg-slate-900 text-white">
-        <div class="absolute inset-0 pointer-events-none opacity-10">
-            <div class="absolute top-10 left-10 w-72 h-72 bg-blue-600 rounded-full blur-[100px]"></div>
-            <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-800 rounded-full blur-[150px]"></div>
+    <!-- Hero Section with HUD layout instead of Single Scanner Image -->
+    <section class="relative min-h-[82vh] flex items-center pt-24 pb-24 overflow-hidden bg-slate-950 text-white">
+        <div class="absolute inset-0 pointer-events-none opacity-5">
+            <div class="absolute top-10 left-10 w-80 h-80 bg-blue-600 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-emerald-500 rounded-full blur-[180px]"></div>
         </div>
         
         <div class="max-w-6xl mx-auto z-10 relative px-6 grid md:grid-cols-2 gap-16 items-center">
             <div class="space-y-8 text-left">
-                <div class="inline-block px-4 py-1.5 rounded-full bg-blue-600/25 border border-blue-500/30 text-blue-400 font-black text-[9px] tracking-widest uppercase">
-                    #1 Automotive Tech in Nigeria
+                <div class="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 font-black text-[9px] tracking-widest uppercase">
+                    👑 Premium Automotive Protection Agency
                 </div>
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-black leading-[0.95] tracking-tighter">
-                    Tools for the <br><span class="text-blue-500 italic uppercase">Smart Driver.</span>
+                     Never Get <br><span class="text-blue-500 italic uppercase">Stranded.</span>
                 </h1>
                 <p class="text-lg md:text-xl text-slate-300 font-medium leading-relaxed">
-                    Our medical-grade diagnostic tools put the power back in your hands. Save your engine, scan faults yourself, and stop greedy workshop overcharges.
+                    Poor fuel quality, sudden dead batteries, flat tires, and manipulative mechanics are daily realities for Nigerian drivers. Our professional DIY devices put absolute control back in your hands.
                 </p>
                 <div class="flex flex-wrap gap-6 items-center">
-                    <button onclick="window.location.href='scanner.html'" class="px-10 py-5 bg-blue-600 text-white rounded-full font-black uppercase tracking-widest hover:bg-blue-700 transition-all flex items-center gap-3 shadow-xl shadow-blue-600/25">
-                        EXPLORE OUR TOOLS <i data-lucide="arrow-right" size="16"></i>
+                    <button onclick="document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' })" class="px-10 py-5 bg-blue-600 text-white rounded-full font-black uppercase tracking-widest hover:bg-blue-700 transition-all flex items-center gap-3 shadow-xl shadow-blue-600/25">
+                        EXPLORE THE CATALOG <i data-lucide="arrow-down" size="16"></i>
                     </button>
-                    <div class="flex items-center gap-3 text-blue-400 font-bold text-sm bg-white/5 py-3 px-6 rounded-full border border-white/10">
+                    <div class="flex items-center gap-3 text-slate-400 font-bold text-sm bg-white/5 py-3 px-6 rounded-full border border-white/10">
                         <span class="flex text-yellow-500">
                             <i data-lucide="star" size="14" fill="currentColor"></i>
                             <i data-lucide="star" size="14" fill="currentColor"></i>
@@ -175,14 +166,59 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Modern HUD Dashboard representation representing 3 critical actions -->
             <div class="relative flex justify-center">
-                <div class="absolute inset-0 bg-blue-600/10 rounded-[4rem] blur-3xl"></div>
-                <img 
-                  src="https://res.cloudinary.com/dmy2yiax9/image/upload/v1777581028/c74b6fce-72e5-4d66-9bcc-fbc25003e76a.png" 
-                  alt="AutoScan Pro Diagnostic Scanner" 
-                  class="w-full max-w-[420px] object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-700"
-                  referrerpolicy="no-referrer"
-                />
+                <div class="absolute inset-0 bg-blue-500/10 rounded-[4rem] blur-3xl"></div>
+                
+                <div class="w-full max-w-[440px] bg-white/5 backdrop-blur-xl border border-white/15 rounded-[3rem] p-8 shadow-2xl relative z-10 space-y-6">
+                    <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                        <span class="text-[10px] font-mono tracking-widest uppercase text-slate-400">Survival Kit Status</span>
+                        <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 font-black text-[9px] uppercase tracking-wider rounded">Shield ACTIVE</span>
+                    </div>
+
+                    <!-- Row 1: Diagnostics -->
+                    <a href="scanner.html" class="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 hover:border-blue-500/40 transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i data-lucide="wrench" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-black text-sm text-white">Car Error Scanner</h4>
+                                <p class="text-[10px] text-slate-400">Decode faults self before mechanics charge</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-slate-500 group-hover:text-blue-400 transition-colors"></i>
+                    </a>
+
+                    <!-- Row 2: Battery Jump -->
+                    <a href="jumpstarter.html" class="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 hover:border-amber-500/40 transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i data-lucide="zap" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-black text-sm text-white">Battery Jump Starter</h4>
+                                <p class="text-[10px] text-slate-400">Start dead engines instantly inside 10s</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-slate-500 group-hover:text-amber-500 transition-colors"></i>
+                    </a>
+
+                    <!-- Row 3: Hydraulics -->
+                    <a href="carjack.html" class="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 hover:border-emerald-500/40 transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i data-lucide="chevrons-up-down" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-black text-sm text-white">5-in-1 Hydraulic Jack</h4>
+                                <p class="text-[10px] text-slate-400">Touch-button lifting & electric wrench bolts</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-slate-500 group-hover:text-emerald-500 transition-colors"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -212,47 +248,123 @@
                 <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
                     <i data-lucide="wrench" size="26"></i>
                 </div>
-                <span class="text-[10px] font-black uppercase tracking-widest text-slate-600">DIY Mechanic Protection</span>
+                <span class="text-[10px] font-black uppercase tracking-widest text-slate-600">DIY Driver Protection</span>
             </div>
         </div>
     </section>
 
-    <!-- Product Showcase Collection -->
-    <section class="py-24 px-6 md:px-12 bg-slate-50">
+    <!-- Curated Multi-Product Store Catalog Grid Section -->
+    <section id="catalog" class="py-28 px-6 md:px-12 bg-slate-50 border-b border-slate-100">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 space-y-4">
-                <p class="font-black text-blue-600 uppercase text-[10px] tracking-[0.4em]">Our Core Diagnostic Solution</p>
-                <h2 class="text-4xl md:text-6xl font-serif font-black text-slate-900">Featured Innovation</h2>
+            <div class="text-center mb-20 space-y-4">
+                <p class="font-black text-blue-600 uppercase text-[10px] tracking-[0.4em]">The Elite Driver's Emergency Arsenal</p>
+                <h2 class="text-4xl md:text-5xl font-serif font-black text-slate-900 tracking-tight">Select Your Smart Solution</h2>
+                <p class="text-slate-500 max-w-xl mx-auto font-medium">Protect yourself from expensive mechanical lies, dead highway jumpstarts, and physical fatigue.</p>
             </div>
 
-            <!-- Custom Unified Product Card -->
-            <a href="scanner.html" class="flex flex-col md:flex-row items-center gap-12 p-8 md:p-12 bg-white border border-slate-100 shadow-xl rounded-[3.5rem] group cursor-pointer transition-all hover:shadow-2xl hover:bg-slate-50/50">
-                <div class="w-full md:w-1/3 aspect-square bg-slate-50 rounded-[2.5rem] overflow-hidden relative flex items-center justify-center p-8 group-hover:bg-blue-50 transition-colors">
-                    <img 
-                      src="https://res.cloudinary.com/dmy2yiax9/image/upload/v1777581028/c74b6fce-72e5-4d66-9bcc-fbc25003e76a.png" 
-                      alt="AutoScan Pro Bluetooth Scanner"
-                      class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
-                      referrerpolicy="no-referrer"
-                    />
+            <!-- 3-Column Catalog Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Product Card 1: Scanner -->
+                <div class="bg-white border border-slate-100 rounded-[2.5rem] p-8 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all group">
+                    <div>
+                        <!-- Product illustration container -->
+                        <div class="aspect-square bg-blue-50/50 rounded-2xl flex items-center justify-center p-6 relative overflow-hidden mb-6 group-hover:bg-blue-50 transition-colors">
+                            <span class="absolute top-4 left-4 bg-blue-600 text-white font-black text-[8px] uppercase tracking-wider px-3 py-1 rounded">🔧 BESTSELLER</span>
+                            <div class="w-24 h-24 rounded-full bg-blue-600/5 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="wrench" class="w-12 h-12"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-yellow-500 flex font-extrabold text-[10px]">★★★★★</span>
+                            <span class="text-[10px] font-black text-slate-400">4.9 (2,450 Reviews)</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-serif font-black mb-3 text-slate-900">AutoScan Pro™</h3>
+                        <p class="text-sm text-slate-500 font-medium leading-relaxed mb-6">
+                            Optimized for local fuel and oxygen sensor conditions. Decode trouble check engine lights instantly on Android/iPhone. Turn off lights, inspect system statistics, and save big.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="text-2xl font-black text-blue-600">₦28,500</span>
+                            <span class="text-sm line-through text-slate-400 font-bold">₦45,000</span>
+                        </div>
+                        <a href="scanner.html" class="block text-center py-4 bg-blue-600 text-white rounded-full font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/10 hover:bg-slate-900 transition-colors">
+                            EXPLORE SCANNER DEAL
+                        </a>
+                    </div>
                 </div>
-                <div class="flex-1 space-y-6">
-                    <div class="flex items-center gap-3">
-                        <span class="px-4 py-1.5 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest">Available</span>
-                        <span class="text-xs font-bold text-slate-400">100% Lifetime Diagnostics Guarantee</span>
+
+                <!-- Product Card 2: Jump Starter -->
+                <div class="bg-white border border-slate-100 rounded-[2.5rem] p-8 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all group">
+                    <div>
+                        <!-- Product illustration container -->
+                        <div class="aspect-square bg-amber-50/50 rounded-2xl flex items-center justify-center p-6 relative overflow-hidden mb-6 group-hover:bg-amber-50 transition-colors">
+                            <span class="absolute top-4 left-4 bg-amber-500 text-white font-black text-[8px] uppercase tracking-wider px-3 py-1 rounded">⚡️ LIFE SAVER</span>
+                            <div class="w-24 h-24 rounded-full bg-amber-500/5 flex items-center justify-center text-amber-500 group-hover:scale-110 transition-transform">
+                                <i data-lucide="zap" class="w-12 h-12"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-yellow-500 flex font-extrabold text-[10px]">★★★★★</span>
+                            <span class="text-[10px] font-black text-slate-400">4.8 (1,240 Reviews)</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-serif font-black mb-3 text-slate-900">SuperVolt Pro™</h3>
+                        <p class="text-sm text-slate-500 font-medium leading-relaxed mb-6">
+                            2000 Peak Amps heavy portable backup battery vault. Crank completely dead car batteries in under 10 seconds. Built-in ultra-bright emergency torch SOS light & fast power bank charge.
+                        </p>
                     </div>
-                    <h3 class="text-4xl md:text-5xl font-serif font-black text-slate-900 italic">AutoScan Pro™</h3>
-                    <p class="text-lg md:text-xl text-slate-500 font-medium leading-relaxed">
-                        Optimized for Nigerian environments and fuel conditions. Instantly read trouble codes, turn off the check engine light, and check engine real-time diagnostics via Bluetooth on your Android or iPhone device.
-                    </p>
-                    <div class="flex items-baseline gap-3">
-                        <span class="text-3xl font-black text-blue-600">₦28,500</span>
-                        <span class="text-sm line-through text-slate-400 font-bold">₦45,000</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-blue-600 font-black text-sm uppercase tracking-widest pt-4">
-                        CLAIM YOUR AUTO CARD DECODER <i data-lucide="chevron-right" class="w-5 h-5"></i>
+
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="text-2xl font-black text-amber-500">₦35,500</span>
+                            <span class="text-sm line-through text-slate-400 font-bold">₦55,000</span>
+                        </div>
+                        <a href="jumpstarter.html" class="block text-center py-4 bg-amber-500 text-white rounded-full font-black text-[10px] uppercase tracking-widest shadow-lg shadow-amber-500/10 hover:bg-slate-900 transition-colors">
+                            EXPLORE STARTER DEAL
+                        </a>
                     </div>
                 </div>
-            </a>
+
+                <!-- Product Card 3: 5-in-1 Jack -->
+                <div class="bg-white border border-slate-100 rounded-[2.5rem] p-8 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all group">
+                    <div>
+                        <!-- Product illustration container -->
+                        <div class="aspect-square bg-emerald-50/50 rounded-2xl flex items-center justify-center p-6 relative overflow-hidden mb-6 group-hover:bg-emerald-50 transition-colors">
+                            <span class="absolute top-4 left-4 bg-emerald-500 text-white font-black text-[8px] uppercase tracking-wider px-3 py-1 rounded">🏋️‍♂️ GARAGE PRO</span>
+                            <div class="w-24 h-24 rounded-full bg-emerald-500/5 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
+                                <i data-lucide="chevrons-up-down" class="w-12 h-12"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-yellow-500 flex font-extrabold text-[10px]">★★★★★</span>
+                            <span class="text-[10px] font-black text-slate-400">4.9 (1,160 Reviews)</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-serif font-black mb-3 text-slate-900">JackMax Pro™</h3>
+                        <p class="text-sm text-slate-500 font-medium leading-relaxed mb-6">
+                            Electric hydraulic jack lifts up to 5000kg instantly with one slide. Automatic rotational wrench looses rusted wheel nuts. Digital auto tyre air pump preset gauge prevents backbreaking manual muscle efforts.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="text-2xl font-black text-emerald-500">₦48,000</span>
+                            <span class="text-sm line-through text-slate-400 font-bold">₦75,000</span>
+                        </div>
+                        <a href="carjack.html" class="block text-center py-4 bg-emerald-500 text-white rounded-full font-black text-[10px] uppercase tracking-widest shadow-lg shadow-emerald-500/10 hover:bg-slate-900 transition-colors">
+                            EXPLORE LIFT DEAL
+                        </a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -274,7 +386,7 @@
                         <i data-lucide="star" size="16" fill="currentColor"></i>
                         <i data-lucide="star" size="16" fill="currentColor"></i>
                     </div>
-                    <p class="font-medium text-slate-700 leading-relaxed italic">"I carried this thing to my mechanic just to test. His computer said one thing, my AutoScan showed the REAL issue. I saved ₦40,000 that day."</p>
+                    <p class="font-medium text-slate-700 leading-relaxed italic">"I bought the AutoScan scanner and the SuperVolt battery jump starter. I carried the starter to travel to the village, my battery failed at night on the expressway. Plugged the clamps and engine started instantly. No towing fee. Best investment ever!"</p>
                     <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Seyi V., Lagos</p>
                 </div>
                 <!-- Review 2 -->
@@ -286,7 +398,7 @@
                         <i data-lucide="star" size="16" fill="currentColor"></i>
                         <i data-lucide="star" size="16" fill="currentColor"></i>
                     </div>
-                    <p class="font-medium text-slate-700 leading-relaxed italic">"Best ₦28k spent on my Corolla. Now I clear the check engine lights myself in 2 seconds instead of waiting for a guy to bring his scanner."</p>
+                    <p class="font-medium text-slate-700 leading-relaxed italic">"Using the JackMax Pro is like a magic trick. Lifts my big heavy Toyota Highlander SUV in under 1 minute. No manual turn sweat, no struggle under the rain. The electric wrench clears the bolts effortlessly."</p>
                     <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">John O., Abuja</p>
                 </div>
                 <!-- Review 3 -->
@@ -298,7 +410,7 @@
                         <i data-lucide="star" size="16" fill="currentColor"></i>
                         <i data-lucide="star" size="16" fill="currentColor"></i>
                     </div>
-                    <p class="font-medium text-slate-700 leading-relaxed italic">"Delivery to Lekki was incredibly fast. The setup is extremely clear on my iPhone. Highly recommended."</p>
+                    <p class="font-medium text-slate-700 leading-relaxed italic">"Extremely fast transit delivery to Lekki. The devices are heavy-duty and professional grade, not cheap plastic toys. Highly recommended to protect your household cars."</p>
                     <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Amaka E., Lekki</p>
                 </div>
             </div>
@@ -315,16 +427,16 @@
             
             <div class="grid gap-8">
                 <div class="p-8 bg-white border border-slate-100 rounded-3xl">
-                    <h4 class="text-lg font-black mb-3 text-slate-900">Will this diagnostic scanner work with my car?</h4>
-                    <p class="text-slate-600 leading-relaxed">Yes! AutoScan Pro works perfectly on all cars made from 1996 to date (e.g. Toyota, Honda, Nissan, Lexus, Ford, Mercedes, etc.) equipped with an OBDII port.</p>
-                </div>
-                <div class="p-8 bg-white border border-slate-100 rounded-3xl">
                     <h4 class="text-lg font-black mb-3 text-slate-900">Are there any monthly subscription fees?</h4>
-                    <p class="text-slate-600 leading-relaxed">No! There are absolutely no subscription fees. The scanner includes lifetime access to our free app downloadable from Google Play and Apple App Stores.</p>
+                    <p class="text-slate-600 leading-relaxed font-medium">No! All of our devices include lifetime complete access with absolutely no charges or recurring licensing fees.</p>
                 </div>
                 <div class="p-8 bg-white border border-slate-100 rounded-3xl">
-                    <h4 class="text-lg font-black mb-3 text-slate-900">How does shipping work?</h4>
-                    <p class="text-slate-600 leading-relaxed">We ship for FREE to all states in Nigeria. Cash-on-delivery is supported in major metropolitan cities (Lagos, Abuja, Rivers).</p>
+                    <h4 class="text-lg font-black mb-3 text-slate-900">What is the technical warranty?</h4>
+                    <p class="text-slate-600 leading-relaxed font-medium">Every tool comes with a 1-year full tech direct replacement warranty. If anything stops working, we send a brand new device immediately under protective policy.</p>
+                </div>
+                <div class="p-8 bg-white border border-slate-100 rounded-3xl">
+                    <h4 class="text-lg font-black mb-3 text-slate-900">How does nationwide shipping work?</h4>
+                    <p class="text-slate-600 leading-relaxed font-medium">We deliver for FREE to all states in Nigeria. Cash-on-delivery is supported in major municipalities (Lagos, Abuja, Rivers) with next-day courier service.</p>
                 </div>
             </div>
         </div>
@@ -335,20 +447,21 @@
         <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-12">
             <div class="md:col-span-2 space-y-6">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                    <div class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-white">
                         <i data-lucide="car" size="20"></i>
                     </div>
                     <span class="text-2xl font-serif font-black tracking-tight text-slate-900">EASY SHOP</span>
                 </div>
-                <p class="text-slate-500 leading-relaxed max-w-sm">
-                    Providing high-grade diagnostic automotive devices directly to Nigerian consumers. No intermediaries, no lies, just pure truth.
+                <p class="text-slate-500 leading-relaxed max-w-sm font-medium">
+                    Providing certified diagnostic and heavy emergency automotive devices directly to Nigerian consumers. Zero lies, absolute roadside control.
                 </p>
             </div>
             <div class="space-y-4">
-                <h4 class="font-black text-[11px] uppercase tracking-[0.3em] text-slate-400">Product</h4>
+                <h4 class="font-black text-[11px] uppercase tracking-[0.3em] text-slate-400">Our Products</h4>
                 <ul class="space-y-2 font-bold text-sm text-slate-600">
-                    <li><a href="scanner.html" class="hover:text-blue-600">AutoScan Pro™ Unit</a></li>
-                    <li><a href="scanner.html#checkout" class="hover:text-blue-600">Bundle Selection</a></li>
+                    <li><a href="scanner.html" class="hover:text-blue-600">AutoScan Pro™ Scanner</a></li>
+                    <li><a href="jumpstarter.html" class="hover:text-amber-500 font-semibold">SuperVolt Pro™ Starter</a></li>
+                    <li><a href="carjack.html" class="hover:text-emerald-500 font-semibold">JackMax Pro™ Lift Jack</a></li>
                 </ul>
             </div>
             <div class="space-y-4">
@@ -381,30 +494,36 @@
             document.getElementById('exit-popup').style.display = 'none';
         });
 
-        // Shared Order Notification Logic
+        // Dynamic multi-product rotating notification logic
         const names = ["Adebayo", "Seyi", "Chinelo", "Folake", "Emeka", "Aisha", "Blessing", "Chidi", "Obinna", "Funke", "Ngozi", "Amaka", "Ifeanyi", "Nneka", "Yusuf", "Daniel", "Tunde", "Segun", "Kunle", "Femi", "Yemi", "Wale", "Bayo", "Sola", "Ronke", "Yinka", "Toyin", "Seyi", "Dayo", "Chioma", "Mustapha"];
         const states = ["Lagos", "Ikeja", "Lekki", "Victoria Island", "Surulere", "Ajah", "Ikorodu", "Maryland", "Ikoyi", "Gbagada", "Yaba", "Abuja", "Wuse", "Garki", "Maitama", "Port Harcourt"];
-        const prods = ["1x AutoScan Unit", "2 Units (Most Popular)", "3 Units (Best Value)"];
+        const products = [
+             { label: "AutoScan Pro™ Diagnostic Decoder", color: "bg-blue-600" },
+             { label: "SuperVolt Pro™ 12V Jump Starter", color: "bg-amber-500" },
+             { label: "JackMax Pro™ 5-in-1 Hydraulic Jack", color: "bg-emerald-500" }
+        ];
 
         function triggerNotif() {
             const el = document.getElementById('order-notification');
             const txt = document.getElementById('notif-text');
-            if (!el || !txt) return;
+            const badge = document.getElementById('notif-badge-color');
+            if (!el || !txt || !badge) return;
 
             const name = names[Math.floor(Math.random() * names.length)];
             const state = states[Math.floor(Math.random() * states.length)];
-            const prod = prods[Math.floor(Math.random() * prods.length)];
+            const prod = products[Math.floor(Math.random() * products.length)];
 
-            txt.innerHTML = `<strong>${name}</strong> from <strong>${state}</strong> ordered <strong>${prod}</strong>`;
+            badge.className = `w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center text-white shadow-lg transition-all duration-500 ${prod.color}`;
+            txt.innerHTML = `<strong>${name}</strong> from <strong>${state}</strong> ordered <strong>${prod.label}</strong>`;
             
             el.classList.add('show');
             setTimeout(() => {
                 el.classList.remove('show');
-            }, 3500);
+            }, 3800);
         }
 
-        setInterval(triggerNotif, 12000);
-        setTimeout(triggerNotif, 2000);
+        setInterval(triggerNotif, 11000);
+        setTimeout(triggerNotif, 1800);
     </script>
 </body>
 </html>

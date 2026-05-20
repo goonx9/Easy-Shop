@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JackMax Pro™ - 5-in-1 Electric Hydraulic Car Jack Kit | Easy Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-display: "Playfair Display", serif;
+            --font-sans: "Plus Jakarta Sans", sans-serif;
+            --radius-product: 1.5rem;
+            --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            --shadow-intense: 0 30px 60px -15px rgba(16, 185, 129, 0.12); /* Emerald green theme accent */
+        }
+
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            color: #1e293b; /* slate-800 */
+            background-color: white;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-display { font-family: "Playfair Display", serif; }
+        .font-sans { font-family: "Plus Jakarta Sans", sans-serif; }
+
+        .section-container {
+            max-width: 72rem; /* 6xl */
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+
+        .glass-card {
+            background-color: white;
+            border: 1px solid #f1f5f9;
+            box-shadow: var(--shadow-soft);
+            border-radius: 1.5rem;
+            transition: all 0.3s;
+        }
+        .glass-card:hover {
+            box-shadow: var(--shadow-intense);
+        }
+
+        .hook-text {
+            color: #10b981; /* emerald-500 */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #10b981; /* emerald-500 */
+            color: white;
+            padding: 1.25rem 2.5rem;
+            border-radius: 9999px;
+            font-weight: 900;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+        }
+        .btn-primary:hover {
+            background-color: #0f172a; /* slate-900 */
+        }
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #999; }
+
+        .bundle-card.selected {
+            border-color: #10b981;
+            background-color: rgba(16, 185, 129, 0.05);
+            ring-width: 4px;
+            ring-color: rgba(16, 185, 129, 0.2);
+            opacity: 1;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(24px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- --- Conversion Hook Banner --- -->
+    <div class="bg-red-600 text-white text-center py-4 px-6 fixed top-0 w-full z-[60] shadow-xl">
+        <p class="text-[10px] font-black uppercase tracking-[0.2em]">
+           ⚠️ SAY GOODBYE TO DRIVER BACKBREAKING SWEAT: Get 5 Heavy-Duty Car Actions in 1 Kit
+        </p>
+    </div>
+
+    <!-- Header -->
+    <header class="pt-24 pb-12 px-10 flex items-center justify-between bg-white border-b border-slate-50 sticky top-0 z-50">
+        <a href="index.html" class="flex items-center gap-2">
+            <i data-lucide="car" class="w-8 h-8 text-emerald-500"></i>
+            <span class="text-2xl font-display font-black tracking-tighter uppercase text-slate-900">Easy Shop</span>
+        </a>
+        <a href="index.html" class="bg-slate-100 text-slate-500 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-950 hover:text-white transition-all">
+            Home
+        </a>
+    </header>
+
+    <!-- --- Problem Hook (Fear/Distrust) --- -->
+    <section class="section-container pt-20 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="hook-text">THE TRUTH ABOUT CHANGING TIRES</div>
+            <h1 class="text-6xl md:text-9xl font-display font-black mb-8 tracking-tighter leading-[0.85] text-slate-900">
+                Stop sweating on roadside dirt <br> <span class="text-emerald-500 underline underline-offset-8 decoration-emerald-100">turning manual jacks.</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-500 font-medium leading-relaxed mb-16 max-w-2xl mx-auto">
+                Got a flat tire under the Lagos sun or in the middle of a busy highway? Simply connect to your car lighter socket, push a button, and lift your vehicle to safety in 60 seconds flat!
+            </p>
+        </div>
+    </section>
+
+    <!-- --- Section 1: The Problem (Manual Jack Pain) --- -->
+    <section class="section-container pt-32 pb-40">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+            <div class="order-2 md:order-1">
+                <div class="hook-text !text-red-500">THE SCENARIO</div>
+                <h2 class="text-5xl font-display font-black tracking-tighter mb-8 italic text-slate-900">Roadside heavy lifting is exhausting.</h2>
+                <p class="text-xl text-slate-500 font-medium leading-relaxed mb-10">
+                    Traditional car scissor jacks are slow, extremely manual, unstable, and dangerous. One slip can damage your vehicle frame or cause serious injury. Why suffer grease, dust, and physical exhaustion when you can operate electric hydraulics?
+                </p>
+                <div class="p-8 bg-red-50 rounded-3xl border border-red-100 flex items-start gap-5">
+                    <i data-lucide="wrench" class="w-6 h-6 text-red-600 mt-1 flex-shrink-0"></i>
+                    <p class="text-sm font-bold text-red-900 leading-relaxed italic">
+                        "Lifting a heavy SUV manually is painful. Loosening stiff nuts tightened by workshop machine guns is close to impossible without automatic tools."
+                    </p>
+                </div>
+                <button 
+                  onclick="document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' })"
+                  class="mt-10 px-10 py-5 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-2xl hover:bg-slate-800 transition-all flex items-center gap-3"
+                >
+                    ORDER NOW <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="order-1 md:order-2">
+                <div class="aspect-[4/5] rounded-[3.5rem] bg-slate-950 overflow-hidden relative border-8 border-white shadow-intense">
+                    <div class="absolute inset-0 p-12 flex flex-col justify-between z-10 text-white bg-gradient-to-b from-slate-900 via-transparent to-slate-950">
+                        <div class="flex justify-between items-center">
+                            <span class="px-4 py-1.5 bg-emerald-500 text-white font-black text-[9px] uppercase tracking-wider rounded-md">Hydraulic 5T</span>
+                            <div class="flex items-center gap-2 text-emerald-400">
+                                <i data-lucide="chevrons-up" class="w-5 h-5 animate-bounce"></i>
+                                <span class="font-black text-sm">5 Tons Max</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Premium Tech Wrench/Jack Graphic Design -->
+                        <div class="my-auto flex flex-col items-center justify-center">
+                            <div class="w-52 h-60 bg-gradient-to-r from-emerald-950 to-slate-900 rounded-[2.5rem] border border-emerald-500/20 p-6 flex flex-col justify-between relative shadow-2xl">
+                                <div class="absolute top-[10%] left-6 text-[10px] uppercase font-black text-emerald-400">JACKMAX 5-in-1</div>
+                                
+                                <div class="w-20 h-20 rounded-full border-4 border-emerald-500/40 border-t-emerald-400 flex items-center justify-center self-center my-auto animate-spin" style="animation-duration: 4s;">
+                                    <i data-lucide="refresh-cw" class="w-8 h-8 text-emerald-400"></i>
+                                </div>
+
+                                <div class="flex justify-between items-end">
+                                    <div>
+                                         <p class="text-[8px] text-slate-400 uppercase tracking-widest font-black">LIFT LEVEL</p>
+                                         <p class="text-xl font-display font-medium text-emerald-400 font-mono">450 MM</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-white/10 rounded-lg text-[9px] font-mono text-slate-300">DC 12V</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center font-bold text-slate-300 text-xs">
+                             Includes heavy-duty automatic impact wrench to loose tight bolts in seconds!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- Section 2: The Solution (Complete Hydraulic Kit) --- -->
+    <section class="bg-slate-50 py-40">
+        <div class="section-container">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+                <div>
+                     <div class="aspect-[4/3] rounded-[3.5rem] bg-slate-900 overflow-hidden relative border-8 border-white shadow-intense p-12 flex flex-col justify-between text-white">
+                        <div class="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-950"></div>
+                        <div class="relative z-10 flex flex-col justify-between h-full">
+                            <div class="flex justify-between items-center">
+                                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest">Tire Pressure Screen</span>
+                                <i data-lucide="gauge" class="text-emerald-400 w-8 h-8"></i>
+                            </div>
+                            <div class="text-center py-6">
+                                <div class="text-5xl font-mono font-black text-emerald-400">35.0 <span class="text-lg">PSI</span></div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-2">AUTOMATIC TIRE INFLATION</p>
+                            </div>
+                            <div class="flex justify-around items-center text-xs font-semibold text-slate-300 border-t border-white/10 pt-4">
+                                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Preset Level</span>
+                                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Auto-Shutoff</span>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+                <div class="space-y-10">
+                    <div>
+                        <div class="hook-text">STEP 01: PLUG & LIFT</div>
+                        <h2 class="text-5xl font-display font-black tracking-tighter mb-8 leading-tight text-slate-900">Operate like an absolute professional garage.</h2>
+                        <p class="text-xl text-slate-500 font-medium leading-relaxed">
+                            No manual screwing. Just slide the hydraulic loader under your vehicle chassis jack point, plug into your 12V cigarette lighter, and hold the UP arrow. The car raises gently, stably, and safely within 60 seconds.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-[2rem] shadow-soft text-center">
+                            <i data-lucide="chevrons-up" class="w-8 h-8 text-emerald-500 mx-auto mb-4"></i>
+                            <h4 class="text-xs font-black uppercase tracking-widest">5 Ton Capacity</h4>
+                        </div>
+                        <div class="bg-white p-6 rounded-[2rem] shadow-soft text-center">
+                            <i data-lucide="wrench" class="w-8 h-8 text-emerald-500 mx-auto mb-4"></i>
+                            <h4 class="text-xs font-black uppercase tracking-widest">Electric Wrench</h4>
+                        </div>
+                    </div>
+                    <button 
+                      onclick="document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' })"
+                      class="mt-6 px-10 py-5 bg-emerald-500 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 transition-all flex items-center gap-3 w-fit"
+                    >
+                        CLAIM CAR JACK DISCOUNT <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- Section 3: The 5 Capabilities --- -->
+    <section class="section-container py-40">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+            <div class="space-y-8">
+                <div class="hook-text">STEP 02: THE 5 ESSENTIAL ACTIONS</div>
+                <h2 class="text-5xl font-display font-black tracking-tighter mb-8 leading-tight italic text-slate-900">Everything you need <br> for highway emergency.</h2>
+                <p class="text-xl text-slate-500 font-medium leading-relaxed">
+                     The JackMax Pro complete tool sets replace five heavy manual items with a single compact luggage case that fits beautifully in your trunk.
+                </p>
+                <ul class="space-y-4 pt-6 font-semibold">
+                    <li class="flex items-center gap-3 text-slate-800">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> 1. <strong>Heavy-Duty Electric Hydraulic Jack:</strong> Lifts up to 5000kg load.
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-800">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> 2. <strong>Electric Impact Wrench:</strong> Rotates at 340N.M torque to loose tight bolts.
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-800">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> 3. <strong>Built-in Tire Inflator Pump:</strong> Pumps flat tires with digital speed.
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-800">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> 4. <strong>Luminous Digital Pressure Screen:</strong> Monitors tyre pressure metrics.
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-800">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> 5. <strong>Intense LED Night Work Torch:</strong> Lights up the dark wheel work zone.
+                    </li>
+                </ul>
+                <button 
+                  onclick="document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' })"
+                  class="mt-8 px-10 py-5 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-2xl hover:bg-slate-800 transition-all flex items-center gap-3 w-fit"
+                >
+                    GET COMPLETE JACK TOOLKIT <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div>
+                 <div class="aspect-square bg-slate-950 rounded-[4rem] p-12 overflow-hidden relative border-8 border-white shadow-intense flex flex-col justify-between text-white">
+                     <span class="bg-white/10 text-slate-300 font-mono text-[9px] uppercase tracking-wider px-3 py-1 rounded w-fit self-end">Premium Storage Toolbox</span>
+                     
+                     <div class="my-auto flex flex-col items-center justify-center p-6 text-center space-y-6">
+                          <div class="w-44 h-24 bg-gradient-to-r from-emerald-600 to-teal-500 rounded-3xl flex items-center justify-center text-white text-4xl shadow-2xl relative border-t-2 border-emerald-400">
+                              <i data-lucide="briefcase" class="w-12 h-12"></i>
+                              <div class="absolute -bottom-2 bg-yellow-500 text-slate-950 px-3 py-0.5 rounded text-[8px] font-black uppercase tracking-wider">Impact Box Ready</div>
+                          </div>
+                          <p class="text-sm font-medium text-slate-300">Constructed from robust, blow-molded professional polymer representing safe terminal protection.</p>
+                     </div>
+
+                     <div class="text-[11px] text-emerald-400 text-center uppercase tracking-widest font-black">
+                         COMPACT REINFORCED STOWAGE CASE INCLUDED
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- Section 4: Physical Safety Benefit --- -->
+    <section class="bg-emerald-950 py-40 px-8 relative overflow-hidden text-white">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-600/15 rounded-full blur-[150px]"></div>
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-20 relative z-10">
+            <div class="w-full md:w-1/2">
+                <div class="aspect-video rounded-[3rem] bg-slate-900 overflow-hidden border-4 border-emerald-800/30 shadow-2xl relative p-10 flex flex-col justify-between">
+                     <div class="flex justify-between items-center">
+                         <span class="text-[10px] font-black uppercase tracking-wider text-emerald-400">Survival Stat</span>
+                         <i data-lucide="shield" class="w-6 h-6 text-emerald-400"></i>
+                     </div>
+                     <div class="space-y-4">
+                         <div class="text-6xl font-display font-bold text-emerald-400 leading-none">60 SEC</div>
+                         <p class="text-lg text-slate-300 font-medium">Standard full mechanical lift speed. Raises completely to max height without turning a single sweat wheel.</p>
+                     </div>
+                     <div class="h-px bg-white/10 w-full"></div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2">
+                <div class="hook-text !text-emerald-400">THE SAFETY RESULT</div>
+                <h2 class="text-6xl font-display font-black tracking-tighter mb-10 leading-tight">Instant Lifting. <br> <span class="italic text-emerald-300">No Roadside Exhaustion.</span></h2>
+                <p class="text-xl text-slate-300 font-medium leading-relaxed mb-12">
+                     Keep your physical clothes clean and your body safe. No more cranking, heavy wrenching, or painful muscle pullouts. The electric hydraulic jack lifts your car, and the automatic wrench unscrews your wheel nuts in seconds. Let the machine do the hard work.
+                </p>
+                <button onclick="openModal('commitmentModal')" class="btn-primary bg-white text-slate-950 hover:bg-slate-200">
+                    GET ELECTRIC JACK NOW
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- Tech Specs & Shipping --- -->
+    <section class="bg-white py-24 px-8 border-b border-slate-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center mb-20">
+                <div class="p-10 bg-slate-50 rounded-[2.5rem] space-y-4">
+                    <div class="w-16 h-16 bg-emerald-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/20">
+                        <i data-lucide="chevrons-up-down" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-black uppercase tracking-tight">5 Ton Lifting Rating</h4>
+                    <p class="text-slate-500 font-medium leading-relaxed">Solid steel hydraulic piston easily raises sedans, heavy pick-ups, and SUVs weighing up to 5000kg.</p>
+                </div>
+                <div class="p-10 bg-slate-50 rounded-[2.5rem] space-y-4">
+                    <div class="w-16 h-16 bg-slate-900 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i data-lucide="nut" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-black uppercase tracking-tight">Heavy Impact Wrench</h4>
+                    <p class="text-slate-500 font-medium leading-relaxed">High torque DC rotational impact motor unscrews frozen or rusted wheel nuts with the touch of a button.</p>
+                </div>
+                <div class="p-10 bg-slate-50 rounded-[2.5rem] space-y-4">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="truck" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-black uppercase tracking-tight">Free Express Shipping</h4>
+                    <p class="text-slate-500 font-medium leading-relaxed">Free transit delivery to any Nigerian state. Standard next-day door delivery in Lagos and metropolitan centers.</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 rounded-[3rem] p-12 md:p-20 text-white relative overflow-hidden">
+                <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <div class="hook-text !text-emerald-400">TECHNICAL CAPABILITIES</div>
+                        <h3 class="text-4xl md:text-5xl font-display font-black mb-8 leading-tight">Professional Hydraulic <br> Safety Design.</h3>
+                        <ul class="space-y-6">
+                            <li class="flex items-center gap-4 text-slate-300">
+                                <div class="w-6 h-6 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400 flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                </div>
+                                <span class="font-medium">Self-Locking Hydraulic Valve Prevent-Drop System</span>
+                            </li>
+                            <li class="flex items-center gap-4 text-slate-300">
+                                <div class="w-6 h-6 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400 flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                </div>
+                                <span class="font-medium">Integrated High-Velocity Cooling Fan Protection</span>
+                            </li>
+                            <li class="flex items-center gap-4 text-slate-300">
+                                <div class="w-6 h-6 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400 flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                </div>
+                                <span class="font-medium">Dual Power Mode (Cigarette Lighter OR Battery clamps)</span>
+                            </li>
+                            <li class="flex items-center gap-4 text-slate-300">
+                                <div class="w-6 h-6 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400 flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                </div>
+                                <span class="font-medium">Integrated digital air tire pump with preset control</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-xl rounded-[2.5rem] p-10 border border-white/10">
+                        <h4 class="text-2xl font-display font-black mb-6 text-emerald-400 italic">"The most robust DC 12V hydraulic motor designed for SUVs & offroad vans."</h4>
+                        <p class="text-slate-400 leading-relaxed mb-8">
+                            Unlike mechanical screw jacks that wear out their threads instantly, automotive hydraulic fluid remains stable for decades. Features robust internal seals preventing oil leaks under pressure.
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center font-black">1YR</div>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-300">Includes Full Direct Technical Warranty Protection</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- Bundle Selection --- -->
+    <section id="checkout" class="bg-slate-950 py-40 text-center">
+        <div class="section-container">
+            <div class="hook-text !text-emerald-400 mb-6">STEP 03: PICK YOUR DEAL</div>
+            <h2 class="text-white text-6xl font-display font-black mb-20 tracking-tighter">Choose Your Package.</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="bundles-container">
+                <div class="bundle-card bg-slate-900 border-2 rounded-[2.5rem] p-12 relative flex flex-col justify-between transition-all cursor-pointer border-white/5 opacity-40 hover:opacity-100" onclick="selectBundle(this, '1', 48000, '1x JackMax Pro Electric Kit')">
+                    <div>
+                        <h4 class="text-white text-2xl font-black mb-2">1x JackMax Pro Complete Kit</h4>
+                        <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-6">1 Jack Unit + Impact Wrench + Carry Case</p>
+                        <div class="flex flex-col items-center gap-1 mb-10">
+                            <div class="flex items-baseline gap-3">
+                                <span class="text-5xl text-white font-display font-black">₦48,000</span>
+                                <span class="text-slate-600 line-through font-bold text-lg">₦75,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-full py-6 rounded-full font-black text-[10px] uppercase tracking-widest bg-slate-800 text-slate-500">SELECT THIS PACKAGE</button>
+                </div>
+
+                <div class="bundle-card selected bg-slate-900 border-2 border-emerald-500 bg-emerald-500/5 ring-4 ring-emerald-500/20 rounded-[2.5rem] p-12 relative flex flex-col justify-between transition-all cursor-pointer" onclick="selectBundle(this, '2', 90000, '2x Duo Family Safety Hydraulic Premium Pack')">
+                    <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[10px] font-black px-5 py-2 rounded-full shadow-xl animate-pulse">SAVE ₦60,000</span>
+                    <div>
+                        <h4 class="text-white text-2xl font-black mb-2">2 Units Safety Bundle</h4>
+                        <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-6 font-semibold">2 Kits + Double Vehicle Protection</p>
+                        <div class="flex flex-col items-center gap-1 mb-10">
+                            <div class="flex items-baseline gap-3">
+                                <span class="text-5xl text-white font-display font-black">₦90,000</span>
+                                <span class="text-slate-600 line-through font-bold text-lg">₦150,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-full py-6 rounded-full font-black text-[10px] uppercase tracking-widest bg-emerald-500 text-white shadow-2xl">PACKAGE SELECTED</button>
+                </div>
+
+                <div class="bundle-card bg-slate-900 border-2 rounded-[2.5rem] p-12 relative flex flex-col justify-between transition-all cursor-pointer border-white/5 opacity-40 hover:opacity-100" onclick="selectBundle(this, '3', 130000, '3x Triple Secure Garage Heavy Pack')">
+                    <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[10px] font-black px-5 py-2 rounded-full shadow-xl">SAVE ₦95,000</span>
+                    <div>
+                        <h4 class="text-white text-2xl font-black mb-2">3 Units Heavy Pack</h4>
+                        <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-6">3 Complete Kits + Heavy Storage Wraps</p>
+                        <div class="flex flex-col items-center gap-1 mb-10">
+                            <div class="flex items-baseline gap-3">
+                                <span class="text-5xl text-white font-display font-black">₦130,000</span>
+                                <span class="text-slate-600 line-through font-bold text-lg">₦225,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-full py-6 rounded-full font-black text-[10px] uppercase tracking-widest bg-slate-800 text-slate-500">SELECT THIS PACKAGE</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- Checkout Form --- -->
+    <section class="section-container pt-40 pb-40">
+        <div class="max-w-4xl mx-auto glass-card flex flex-col items-center p-12 md:p-24 shadow-intense">
+            <h3 class="text-4xl font-display font-black mb-10 tracking-tight">Finalize Delivery</h3>
+            
+            <form id="orderForm" class="w-full space-y-12">
+                <input type="hidden" id="selectedBundleInput" value="2x Duo Family Safety Hydraulic Premium Pack">
+                <input type="hidden" id="selectedPriceInput" value="90000">
+
+                <div class="space-y-4">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Full Delivery Name</label>
+                    <input type="text" id="name" required class="w-full border-b border-slate-200 py-4 outline-none focus:border-emerald-500 font-bold text-xl" placeholder="Adebayo Ogunlesi">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="space-y-4">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">WhatsApp Number</label>
+                        <input type="tel" id="phone" required class="w-full border-b border-slate-200 py-4 outline-none focus:border-emerald-500 font-bold text-xl" placeholder="0803 000 0000">
+                    </div>
+                    <div class="space-y-4">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Select State</label>
+                        <select id="state" required class="w-full border-b border-slate-200 py-4 outline-none focus:border-emerald-500 font-bold text-xl bg-transparent transition-all cursor-pointer">
+                            <option value="Lagos">Lagos</option>
+                            <option value="Abuja">Abuja</option>
+                            <option value="Rivers">Rivers</option>
+                            <option value="Oyo">Oyo</option>
+                            <option value="Edo">Edo</option>
+                            <option value="Kano">Kano</option>
+                            <option value="OtherState">Other States</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Full Delivery Address</label>
+                    <textarea id="address" required class="w-full border-b border-slate-200 py-4 outline-none focus:border-emerald-500 font-bold text-xl resize-none" rows="2" placeholder="No, Street, Landmark"></textarea>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="p-8 bg-red-50 rounded-3xl border border-red-100 flex items-start gap-4">
+                        <i data-lucide="clock" class="w-10 h-10 text-red-600 mt-1 flex-shrink-0"></i>
+                        <div>
+                            <h5 class="text-[10px] font-black uppercase tracking-widest text-red-600 mb-1">Critical Availability Notice</h5>
+                            <p class="text-sm text-red-950 font-black leading-relaxed font-sans uppercase tracking-tight italic">
+                                DO NOT ORDER IF YOU WILL NOT BE AVAILABLE IN THE NEXT 24 TO 48 HRS TO RECEIVE YOUR CALL AND PACKAGE.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-primary w-full py-8 text-2xl font-black">CONFIRM ORDER</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 text-center border-t border-slate-50">
+        <div class="text-[10px] font-black uppercase tracking-[0.5em] text-slate-300">© 2026 EASY SHOP AUTOMOTIVE</div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="commitmentModal" class="modal-overlay">
+        <div class="bg-white rounded-[3rem] max-w-xl w-full p-12 md:p-16 relative overflow-hidden text-center shadow-intense">
+            <div class="inline-block p-6 bg-red-50 rounded-full mb-10 text-red-600">
+                <i data-lucide="clock" class="w-12 h-12"></i>
+            </div>
+            <h3 class="text-4xl font-display font-black mb-6 tracking-tighter leading-none italic uppercase">Are you ready <br> to receive?</h3>
+            <p class="text-lg text-slate-500 font-medium leading-relaxed mb-10">
+                To prevent wasted shipping costs, please confirm you will be <span class="text-red-600 font-black">available in the next 24 to 48 hours</span> to receive your call and package.
+            </p>
+            <div class="space-y-4">
+                <button onclick="confirmCommitment()" class="btn-primary w-full py-6 text-xl shadow-xl">YES, I AM AVAILABLE</button>
+                <button onclick="closeModal('commitmentModal')" class="w-full text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-slate-900 transition-colors">I'm not sure, let me wait</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exit Popup -->
+    <div id="exitPopup" class="modal-overlay">
+        <div class="bg-white rounded-[3rem] max-w-xl w-full p-12 md:p-16 relative overflow-hidden text-center shadow-intense">
+            <button onclick="closeModal('exitPopup')" class="absolute top-8 right-8 w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center hover:bg-slate-100 transition-colors">
+                <i data-lucide="x" class="w-6 h-6 text-slate-400"></i>
+            </button>
+            <div class="relative z-10">
+                <div class="inline-block p-6 bg-emerald-50 rounded-[2.5rem] mb-10 text-emerald-500">
+                    <i data-lucide="shield-alert" class="w-14 h-14"></i>
+                </div>
+                <h2 class="text-5xl font-display font-black mb-6 tracking-tighter">Oga, Wait!</h2>
+                <p class="text-xl text-slate-500 mb-12 leading-relaxed font-medium">
+                    We have a <span class="text-emerald-500 font-black underline decoration-2 underline-offset-4 decoration-emerald-200">₦4,000 DISCOUNT</span> voucher locked for you if you complete your order in the next 5 minutes.
+                </p>
+                <div class="space-y-4">
+                    <button onclick="claimVoucher()" class="w-full py-6 bg-emerald-500 text-white rounded-full font-black text-xl hover:bg-emerald-600 transition-all shadow-2xl active:scale-95">CLAIM MY DISCOUNT</button>
+                    <button onclick="closeModal('exitPopup')" class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300 hover:text-slate-950 transition-colors">No thanks, I'll pay full price</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        function selectBundle(el, id, price, name) {
+            document.querySelectorAll('.bundle-card').forEach(card => {
+                card.classList.remove('selected', 'border-emerald-500', 'bg-emerald-500/5', 'ring-4', 'ring-emerald-500/20', 'opacity-100');
+                card.classList.add('opacity-40', 'border-white/5');
+                const btn = card.querySelector('button');
+                if (btn) {
+                    btn.classList.remove('bg-emerald-500', 'text-white', 'shadow-2xl');
+                    btn.classList.add('bg-slate-800', 'text-slate-500');
+                    btn.innerText = 'SELECT THIS PACKAGE';
+                }
+            });
+            
+            el.classList.add('selected', 'border-emerald-500', 'bg-emerald-500/5', 'ring-4', 'ring-emerald-500/20');
+            el.classList.remove('opacity-40', 'border-white/5');
+            const selectedBtn = el.querySelector('button');
+            if (selectedBtn) {
+                selectedBtn.classList.add('bg-emerald-500', 'text-white', 'shadow-2xl');
+                selectedBtn.classList.remove('bg-slate-800', 'text-slate-500');
+                selectedBtn.innerText = 'PACKAGE SELECTED';
+            }
+
+            document.getElementById('selectedBundleInput').value = name;
+            document.getElementById('selectedPriceInput').value = price;
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function confirmCommitment() {
+            closeModal('commitmentModal');
+            document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function claimVoucher() {
+            closeModal('exitPopup');
+            document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Exit intent logic
+        let exitPopupShown = localStorage.getItem("jack_exit_popup_shown");
+        document.addEventListener("mouseleave", (e) => {
+            if (e.clientY <= 0 && !exitPopupShown) {
+                openModal('exitPopup');
+                exitPopupShown = true;
+                localStorage.setItem("jack_exit_popup_shown", "true");
+            }
+        });
+
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerText = "PROCESSING...";
+            submitBtn.disabled = true;
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const state = document.getElementById('state').value;
+            const address = document.getElementById('address').value;
+            const bundle = document.getElementById('selectedBundleInput').value;
+            const price = document.getElementById('selectedPriceInput').value;
+
+            const whatsappMessage = `Easy Shop Car Jack Order Consultation:\n\n` +
+                `Product: ${bundle}\n` +
+                `Total: ₦${price}\n\n` +
+                `Customer: ${name}\n` +
+                `Phone: ${phone}\n` +
+                `State: ${state}\n` +
+                `Address: ${address}`;
+            
+            setTimeout(() => {
+                window.open(`https://wa.me/2348039940408?text=${encodeURIComponent(whatsappMessage)}`, "_blank");
+                submitBtn.innerText = "CONFIRM ORDER";
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
