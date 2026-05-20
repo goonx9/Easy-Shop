@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node server.js",
+    "start": "node server.js",
     "build": "mkdir -p dist && cp index.html scanner.html dist/",
     "preview": "node server.js",
     "clean": "rm -rf dist",
