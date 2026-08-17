@@ -1,6 +1,6 @@
 {
-  "name": "EasyShop - Car Jump Starter",
-  "description": "One-product e-commerce landing page for the Car Jump Starter tailored for Nigerian customers and GitHub Pages hosting.",
+  "name": "Car Jump Starter Nigeria",
+  "description": "One-product e-commerce landing page for the Car Jump Starter tailored for Nigerian customers with Pay on Delivery.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
