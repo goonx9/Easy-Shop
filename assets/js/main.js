@@ -1,6 +1,7 @@
 /**
  * EasyShop - Main JavaScript (Vanilla JS)
  * Zero frameworks, zero dependencies, 100% GitHub Pages Compatible
+ * Conversion-focused Direct-Response Landing Page Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,19 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
   initVideoPlayers();
   initFaqAccordion();
   initVariantSelectors();
-  initCart();
-  initCheckoutForm();
+  initOrderNowCTAs();
+  initOrderForm();
+  initMetaPixelTracking();
 });
 
 /* ==========================================================================
    1. REUSABLE CLICK-TO-LOAD VIDEO COMPONENT
-   Critical Performance Requirement: Zero MP4 preloading or downloading before click
+   Critical Performance Requirement: Zero MP4 preloading before user click
    ========================================================================== */
 function initVideoPlayers() {
   const containers = document.querySelectorAll('.video-container');
 
   containers.forEach(container => {
-    container.addEventListener('click', function handleVideoPlay(e) {
+    container.addEventListener('click', function handleVideoPlay() {
       const videoSrc = this.getAttribute('data-video-src');
       if (!videoSrc) return;
 
@@ -30,7 +32,7 @@ function initVideoPlayers() {
       // Remove thumbnail & play overlay
       this.innerHTML = '';
 
-      // Create video element with required attributes
+      // Create video element strictly matching requirements
       const video = document.createElement('video');
       video.setAttribute('controls', 'true');
       video.setAttribute('playsinline', 'true');
@@ -46,7 +48,7 @@ function initVideoPlayers() {
 
       // Start playback
       video.play().catch(err => {
-        console.log('Autoplay blocked or playback error:', err);
+        console.log('Video play error or permissions block:', err);
       });
 
       // Track interaction if Meta Pixel is loaded
@@ -71,7 +73,7 @@ function initMobileNav() {
   });
 
   // Close when clicking a nav link
-  mobileNav.querySelectorAll('.nav-link').forEach(link => {
+  mobileNav.querySelectorAll('.nav-link, .btn').forEach(link => {
     link.addEventListener('click', () => {
       mobileNav.classList.remove('open');
     });
@@ -104,6 +106,7 @@ function initFaqAccordion() {
 
 /* ==========================================================================
    4. PRODUCT VARIANTS & CONFIGURATION
+   Standard: ₦59,900 | Premium: ₦69,900
    ========================================================================== */
 const PRODUCTS = {
   'standard': {
@@ -112,7 +115,6 @@ const PRODUCTS = {
     variant: 'Standard',
     price: 59900,
     priceFormatted: '₦59,900',
-    originalPrice: 69900,
     originalPriceFormatted: '₦69,900',
     image: 'https://res.cloudinary.com/dmy2yiax9/image/upload/f_auto,q_auto,w_800/v1787000239/5771575669845332195_duiuzr.jpg'
   },
@@ -122,7 +124,6 @@ const PRODUCTS = {
     variant: 'Premium',
     price: 69900,
     priceFormatted: '₦69,900',
-    originalPrice: 85000,
     originalPriceFormatted: '₦85,000',
     image: 'https://res.cloudinary.com/dmy2yiax9/image/upload/f_auto,q_auto,w_800/v1787000239/5771575669845332193_u8om14.jpg'
   }
@@ -138,30 +139,13 @@ function initVariantSelectors() {
   const origPriceDisplay = document.getElementById('productOrigPriceDisplay');
   const thumbButtons = document.querySelectorAll('.thumb-btn');
 
+  // Variant selector cards on product section
   variantCards.forEach(card => {
     card.addEventListener('click', function () {
       const selectedVariant = this.getAttribute('data-variant');
       if (!PRODUCTS[selectedVariant]) return;
 
-      currentVariantKey = selectedVariant;
-
-      // Update UI active state
-      variantCards.forEach(c => c.classList.remove('selected'));
-      this.classList.add('selected');
-
-      const product = PRODUCTS[selectedVariant];
-
-      // Update price text if present
-      if (priceDisplay) priceDisplay.textContent = product.priceFormatted;
-      if (origPriceDisplay) origPriceDisplay.textContent = product.originalPriceFormatted;
-
-      // Update main gallery image
-      if (mainGalleryImg) {
-        mainGalleryImg.src = product.image;
-      }
-
-      // Sync form if on page
-      updateCheckoutSummary();
+      selectVariant(selectedVariant);
     });
   });
 
@@ -181,12 +165,15 @@ function initVariantSelectors() {
   const qtyMinus = document.getElementById('qtyMinus');
   const qtyPlus = document.getElementById('qtyPlus');
   const qtyValue = document.getElementById('qtyValue');
+  const formQtySelect = document.getElementById('orderQty');
 
   if (qtyMinus && qtyPlus && qtyValue) {
     qtyMinus.addEventListener('click', () => {
       if (currentQuantity > 1) {
         currentQuantity--;
         qtyValue.textContent = currentQuantity;
+        if (formQtySelect) formQtySelect.value = currentQuantity;
+        updateOrderSummary();
       }
     });
 
@@ -194,266 +181,211 @@ function initVariantSelectors() {
       if (currentQuantity < 10) {
         currentQuantity++;
         qtyValue.textContent = currentQuantity;
-      }
-    });
-  }
-}
-
-/* ==========================================================================
-   5. LIGHTWEIGHT LOCALSTORAGE CART
-   ========================================================================== */
-const CART_STORAGE_KEY = 'easyshop_cart_items';
-
-function getCart() {
-  try {
-    const raw = localStorage.getItem(CART_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (e) {
-    return [];
-  }
-}
-
-function saveCart(cart) {
-  try {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-  } catch (e) {
-    console.error('Failed to save cart to localStorage', e);
-  }
-  updateCartUI();
-  updateCheckoutSummary();
-}
-
-function addToCart(variantKey, quantity = 1) {
-  const product = PRODUCTS[variantKey] || PRODUCTS['standard'];
-  const cart = getCart();
-
-  const existingIndex = cart.findIndex(item => item.variant === product.variant);
-  if (existingIndex > -1) {
-    cart[existingIndex].quantity += quantity;
-  } else {
-    cart.push({
-      id: product.id,
-      name: product.name,
-      variant: product.variant,
-      price: product.price,
-      priceFormatted: product.priceFormatted,
-      image: product.image,
-      quantity: quantity
-    });
-  }
-
-  saveCart(cart);
-  showToast(`Added ${product.variant} Car Jump Starter to cart!`);
-
-  // Meta Pixel AddToCart event
-  if (typeof window.fbq === 'function') {
-    window.fbq('track', 'AddToCart', {
-      content_name: product.name,
-      content_category: 'Automotive Accessories',
-      value: product.price * quantity,
-      currency: 'NGN'
-    });
-  }
-
-  openCartDrawer();
-}
-
-function removeFromCart(index) {
-  const cart = getCart();
-  if (index >= 0 && index < cart.length) {
-    cart.splice(index, 1);
-    saveCart(cart);
-  }
-}
-
-function updateCartUI() {
-  const cart = getCart();
-  const cartCountElements = document.querySelectorAll('.cart-count');
-  const cartBody = document.getElementById('cartBody');
-  const cartSubtotal = document.getElementById('cartSubtotal');
-  const cartTotal = document.getElementById('cartTotal');
-
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  cartCountElements.forEach(el => el.textContent = totalItems);
-
-  if (!cartBody) return;
-
-  if (cart.length === 0) {
-    cartBody.innerHTML = `
-      <div class="cart-empty-message">
-        <p>Your cart is empty.</p>
-        <a href="jump-starter.html" class="btn btn-outline btn-sm" style="margin-top: 1rem;">View Product</a>
-      </div>
-    `;
-    if (cartSubtotal) cartSubtotal.textContent = '₦0';
-    if (cartTotal) cartTotal.textContent = '₦0';
-    return;
-  }
-
-  let totalAmount = 0;
-  let html = '';
-
-  cart.forEach((item, index) => {
-    const itemTotal = item.price * item.quantity;
-    totalAmount += itemTotal;
-
-    html += `
-      <div class="cart-item">
-        <div class="cart-item-img">
-          <img src="${item.image}" alt="${item.name}" loading="lazy">
-        </div>
-        <div class="cart-item-details">
-          <div>
-            <h4 class="cart-item-title">${item.name}</h4>
-            <span class="cart-item-variant">Edition: ${item.variant} &bull; Qty: ${item.quantity}</span>
-          </div>
-          <div class="cart-item-row">
-            <span class="cart-item-price">₦${(itemTotal).toLocaleString()}</span>
-            <button class="cart-item-remove" onclick="window.EasyShop.removeFromCart(${index})">Remove</button>
-          </div>
-        </div>
-      </div>
-    `;
-  });
-
-  cartBody.innerHTML = html;
-  const formattedTotal = '₦' + totalAmount.toLocaleString();
-  if (cartSubtotal) cartSubtotal.textContent = formattedTotal;
-  if (cartTotal) cartTotal.textContent = formattedTotal;
-}
-
-function openCartDrawer() {
-  const drawer = document.getElementById('cartDrawer');
-  const overlay = document.getElementById('cartOverlay');
-  if (drawer && overlay) {
-    drawer.classList.add('active');
-    overlay.classList.add('active');
-  }
-}
-
-function closeCartDrawer() {
-  const drawer = document.getElementById('cartDrawer');
-  const overlay = document.getElementById('cartOverlay');
-  if (drawer && overlay) {
-    drawer.classList.remove('active');
-    overlay.classList.remove('active');
-  }
-}
-
-function initCart() {
-  // Cart Drawer open/close buttons
-  const openCartBtns = document.querySelectorAll('.cart-button, .btn-open-cart');
-  const closeCartBtn = document.getElementById('cartCloseBtn');
-  const overlay = document.getElementById('cartOverlay');
-
-  openCartBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openCartDrawer();
-    });
-  });
-
-  if (closeCartBtn) closeCartBtn.addEventListener('click', closeCartDrawer);
-  if (overlay) overlay.addEventListener('click', closeCartDrawer);
-
-  // Add to cart buttons
-  const addToCartBtn = document.getElementById('addToCartBtn');
-  if (addToCartBtn) {
-    addToCartBtn.addEventListener('click', () => {
-      addToCart(currentVariantKey, currentQuantity);
-    });
-  }
-
-  // Instant Buy Now
-  const buyNowBtn = document.getElementById('buyNowBtn');
-  if (buyNowBtn) {
-    buyNowBtn.addEventListener('click', () => {
-      addToCart(currentVariantKey, currentQuantity);
-      const checkoutSec = document.getElementById('checkoutSection');
-      if (checkoutSec) {
-        closeCartDrawer();
-        checkoutSec.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.location.href = 'jump-starter.html#checkoutSection';
+        if (formQtySelect) formQtySelect.value = currentQuantity;
+        updateOrderSummary();
       }
     });
   }
 
-  updateCartUI();
+  // Radio buttons inside order form
+  const formRadios = document.querySelectorAll('input[name="formVariant"]');
+  formRadios.forEach(radio => {
+    radio.addEventListener('change', function () {
+      if (this.checked) {
+        selectVariant(this.value);
+      }
+    });
+  });
+
+  if (formQtySelect) {
+    formQtySelect.addEventListener('change', function () {
+      currentQuantity = parseInt(this.value, 10) || 1;
+      if (qtyValue) qtyValue.textContent = currentQuantity;
+      updateOrderSummary();
+    });
+  }
 }
 
-/* ==========================================================================
-   6. CHECKOUT FORM & NIGERIAN ORDER PROCESSING
-   Includes explicit extension points for Paystack, Flutterwave & WhatsApp
-   ========================================================================== */
-function updateCheckoutSummary() {
+function selectVariant(variantKey) {
+  if (!PRODUCTS[variantKey]) return;
+  currentVariantKey = variantKey;
+  const product = PRODUCTS[variantKey];
+
+  // Update top cards
+  const variantCards = document.querySelectorAll('.variant-card');
+  variantCards.forEach(c => {
+    if (c.getAttribute('data-variant') === variantKey) {
+      c.classList.add('selected');
+    } else {
+      c.classList.remove('selected');
+    }
+  });
+
+  // Update form radio buttons and parent labels
+  const formRadios = document.querySelectorAll('input[name="formVariant"]');
+  formRadios.forEach(radio => {
+    const parentLabel = radio.closest('.form-variant-label') || radio.closest('.edition-card-label');
+    if (radio.value === variantKey) {
+      radio.checked = true;
+      if (parentLabel) parentLabel.classList.add('selected');
+    } else {
+      radio.checked = false;
+      if (parentLabel) parentLabel.classList.remove('selected');
+    }
+  });
+
+  // Update gallery & price
+  const mainGalleryImg = document.getElementById('mainGalleryImg');
+  const priceDisplay = document.getElementById('productPriceDisplay');
+  const origPriceDisplay = document.getElementById('productOrigPriceDisplay');
+
+  if (priceDisplay) priceDisplay.textContent = product.priceFormatted;
+  if (origPriceDisplay) origPriceDisplay.textContent = product.originalPriceFormatted;
+  if (mainGalleryImg) mainGalleryImg.src = product.image;
+
+  updateOrderSummary();
+}
+
+function updateOrderSummary() {
   const summaryVariant = document.getElementById('summaryVariant');
   const summaryPrice = document.getElementById('summaryPrice');
   const summaryTotal = document.getElementById('summaryTotal');
 
-  const cart = getCart();
-  if (cart.length > 0) {
-    // If items in cart, summarize entire cart
-    const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const itemNames = cart.map(i => `${i.variant} (x${i.quantity})`).join(', ');
+  const product = PRODUCTS[currentVariantKey] || PRODUCTS['standard'];
+  const totalAmount = product.price * currentQuantity;
 
-    if (summaryVariant) summaryVariant.textContent = itemNames;
-    if (summaryPrice) summaryPrice.textContent = '₦' + totalAmount.toLocaleString();
-    if (summaryTotal) summaryTotal.textContent = '₦' + totalAmount.toLocaleString();
-  } else {
-    // Default to active selected variant
-    const product = PRODUCTS[currentVariantKey] || PRODUCTS['standard'];
-    if (summaryVariant) summaryVariant.textContent = product.variant;
-    if (summaryPrice) summaryPrice.textContent = product.priceFormatted;
-    if (summaryTotal) summaryTotal.textContent = product.priceFormatted;
+  if (summaryVariant) {
+    summaryVariant.textContent = `${product.variant} Edition (Qty: ${currentQuantity})`;
+  }
+  if (summaryPrice) {
+    summaryPrice.textContent = `₦${(product.price * currentQuantity).toLocaleString()}`;
+  }
+  if (summaryTotal) {
+    summaryTotal.textContent = `₦${totalAmount.toLocaleString()}`;
   }
 }
 
-function initCheckoutForm() {
+/* ==========================================================================
+   5. ORDER NOW CTAs & SMOOTH SCROLLING
+   Smoothly scroll to #order-form and trigger Meta Pixel InitiateCheckout
+   ========================================================================== */
+let lastCheckoutEventTime = 0;
+
+function initOrderNowCTAs() {
+  // Target every CTA that triggers ordering
+  const orderButtons = document.querySelectorAll('a[href="#order-form"], button.btn-order-now, .order-cta-btn');
+
+  orderButtons.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      
+      const orderFormSection = document.getElementById('order-form');
+      if (orderFormSection) {
+        orderFormSection.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // Fire Meta Pixel InitiateCheckout once per intent (with 10-second debounce)
+      const now = Date.now();
+      if (now - lastCheckoutEventTime > 10000) {
+        lastCheckoutEventTime = now;
+        if (typeof window.fbq === 'function') {
+          const product = PRODUCTS[currentVariantKey] || PRODUCTS['standard'];
+          window.fbq('track', 'InitiateCheckout', {
+            content_name: product.name,
+            content_category: 'Automotive Accessories',
+            value: product.price * currentQuantity,
+            currency: 'NGN'
+          });
+        }
+      }
+    });
+  });
+}
+
+/* ==========================================================================
+   6. META PIXEL: VIEWCONTENT TRACKING
+   Triggered once when visitor reaches the main product engagement area
+   ========================================================================== */
+function initMetaPixelTracking() {
+  let viewContentFired = false;
+  const productSection = document.getElementById('product') || document.getElementById('benefits');
+
+  if (productSection && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !viewContentFired) {
+          viewContentFired = true;
+          if (typeof window.fbq === 'function') {
+            window.fbq('track', 'ViewContent', {
+              content_name: 'Car Jump Starter',
+              content_category: 'Automotive Emergency Power',
+              value: 59900,
+              currency: 'NGN'
+            });
+          }
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(productSection);
+  }
+}
+
+/* ==========================================================================
+   7. SIMPLE ORDER FORM AT THE BOTTOM (MAIN CONVERSION POINT)
+   ========================================================================== */
+function initOrderForm() {
   const orderForm = document.getElementById('orderForm');
   if (!orderForm) return;
+
+  // Initialize summary display
+  updateOrderSummary();
 
   orderForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const fullName = document.getElementById('fullName')?.value.trim();
     const phone = document.getElementById('phone')?.value.trim();
-    const email = document.getElementById('email')?.value.trim();
+    const whatsapp = document.getElementById('whatsapp')?.value.trim() || phone;
     const state = document.getElementById('state')?.value;
     const city = document.getElementById('city')?.value.trim();
     const address = document.getElementById('address')?.value.trim();
 
-    if (!fullName || !phone || !state || !address) {
-      alert('Please fill in all required fields (Full Name, Phone Number, State, and Address).');
+    if (!fullName || !phone || !state || !city || !address) {
+      alert('Please complete all required fields (Full Name, Phone Number, State, City, and Delivery Address).');
       return;
     }
 
-    const cart = getCart();
-    const activeProduct = PRODUCTS[currentVariantKey] || PRODUCTS['standard'];
-    const orderItems = cart.length > 0 ? cart : [{
-      name: activeProduct.name,
-      variant: activeProduct.variant,
-      price: activeProduct.price,
-      quantity: 1
-    }];
-
-    const totalAmount = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const product = PRODUCTS[currentVariantKey] || PRODUCTS['standard'];
+    const totalAmount = product.price * currentQuantity;
 
     const orderData = {
-      customer: { fullName, phone, email, state, city, address },
-      items: orderItems,
+      customer: { fullName, phone, whatsapp, state, city, address },
+      product: {
+        id: product.id,
+        name: product.name,
+        variant: product.variant,
+        price: product.price,
+        quantity: currentQuantity
+      },
       total: totalAmount,
       currency: 'NGN',
-      paymentMethod: 'Cash on Delivery / Transfer on Delivery',
+      paymentMethod: 'Payment on Delivery',
       createdAt: new Date().toISOString()
     };
 
-    console.log('Order submitted successfully:', orderData);
+    console.log('New Order Placed:', orderData);
 
     // Track Meta Pixel Lead & Purchase
     if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', { content_name: 'Car Jump Starter Order' });
+      window.fbq('track', 'Lead', {
+        content_name: `${product.variant} Car Jump Starter`,
+        value: totalAmount,
+        currency: 'NGN'
+      });
       window.fbq('track', 'Purchase', {
+        content_name: product.name,
         value: totalAmount,
         currency: 'NGN',
         content_type: 'product'
@@ -461,90 +393,43 @@ function initCheckoutForm() {
     }
 
     /* --------------------------------------------------------------------------
-       FUTURE INTEGRATION HOOKS:
-       
-       1. PAYSTACK INTEGRATION:
-          const handler = PaystackPop.setup({
-            key: 'pk_live_YOUR_PAYSTACK_PUBLIC_KEY',
-            email: email || 'customer@easyshop.ng',
-            amount: totalAmount * 100, // in kobo
-            currency: 'NGN',
-            callback: function(response) {
-              // Handle Paystack verified reference: response.reference
-            }
-          });
-          handler.openIframe();
-       
-       2. FLUTTERWAVE INTEGRATION:
-          FlutterwaveCheckout({
-            public_key: 'FLWPUBK_YOUR_KEY',
-            tx_ref: 'ES_' + Date.now(),
-            amount: totalAmount,
-            currency: 'NGN',
-            customer: { email, phone_number: phone, name: fullName }
-          });
-       
-       3. DIRECT WHATSAPP ORDER DISPATCH (Default fallback for Nigerian customers):
+       Direct WhatsApp Dispatch Hook for Nigerian Operations
        -------------------------------------------------------------------------- */
-    const whatsappText = encodeURIComponent(
-      `Hello EasyShop, I want to place an order for the Car Jump Starter.\n\n` +
-      `📦 Item: ${orderItems.map(i => `${i.name} (Qty: ${i.quantity})`).join(', ')}\n` +
-      `💰 Total: ₦${totalAmount.toLocaleString()}\n` +
-      `👤 Name: ${fullName}\n` +
-      `📞 Phone: ${phone}\n` +
-      `📍 Delivery Address: ${address}, ${city || ''} ${state}\n` +
-      `💳 Payment: Payment on Delivery`
+    const whatsappMessage = encodeURIComponent(
+      `*NEW ORDER - CAR JUMP STARTER*\n\n` +
+      `📦 *Package:* ${product.variant} Edition (Qty: ${currentQuantity})\n` +
+      `💰 *Total Amount:* ₦${totalAmount.toLocaleString()}\n` +
+      `👤 *Full Name:* ${fullName}\n` +
+      `📞 *Phone:* ${phone}\n` +
+      `💬 *WhatsApp:* ${whatsapp}\n` +
+      `📍 *Delivery Address:* ${address}, ${city}, ${state} State\n` +
+      `💳 *Payment Terms:* Pay on Delivery\n\n` +
+      `Please confirm my delivery dispatch.`
     );
 
-    // Show instant success UI
+    // Render Success UI
     orderForm.innerHTML = `
-      <div style="text-align: center; padding: 2rem 1rem;">
-        <div style="width: 60px; height: 60px; background-color: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      <div style="text-align: center; padding: 2.5rem 1rem;">
+        <div style="width: 64px; height: 64px; background-color: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
-        <h3 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">Order Received!</h3>
-        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
-          Thank you, <strong>${fullName}</strong>. Our customer representative will call or WhatsApp you on <strong>${phone}</strong> shortly to confirm your delivery to <strong>${state}</strong>.
+        <h3 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">Order Received Successfully!</h3>
+        <p style="color: #64748b; font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; max-width: 520px; margin-left: auto; margin-right: auto;">
+          Thank you, <strong>${fullName}</strong>. Your order for the <strong>${product.variant} Car Jump Starter (Qty: ${currentQuantity})</strong> has been received. Our dispatch team will call or message you on <strong>${phone}</strong> shortly before delivery to <strong>${city}, ${state}</strong>.
         </p>
-        <a href="https://wa.me/2348000000000?text=${whatsappText}" target="_blank" rel="noopener" class="btn btn-primary btn-lg" style="margin-bottom: 1rem;">
-          Confirm Instantly on WhatsApp
-        </a>
-        <div>
-          <a href="index.html" class="btn btn-outline btn-sm">Back to Home</a>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 360px; margin: 0 auto;">
+          <a href="https://wa.me/2348000000000?text=${whatsappMessage}" target="_blank" rel="noopener" class="btn btn-primary btn-lg btn-full" style="background-color: #25D366; color: #ffffff;">
+            Confirm Instantly on WhatsApp
+          </a>
+          <a href="#hero" class="btn btn-outline btn-sm">Back to Top</a>
         </div>
       </div>
     `;
 
-    // Clear cart after order
-    localStorage.removeItem(CART_STORAGE_KEY);
-    updateCartUI();
+    // Smoothly ensure order confirmation is in view
+    const orderFormSection = document.getElementById('order-form');
+    if (orderFormSection) {
+      orderFormSection.scrollIntoView({ behavior: 'smooth' });
+    }
   });
 }
-
-/* ==========================================================================
-   7. TOAST NOTIFICATION UTILITY
-   ========================================================================== */
-function showToast(message) {
-  let toast = document.getElementById('toastNotification');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'toastNotification';
-    toast.className = 'toast';
-    document.body.appendChild(toast);
-  }
-
-  toast.textContent = message;
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 3200);
-}
-
-// Global namespace for inline HTML event hooks
-window.EasyShop = {
-  addToCart,
-  removeFromCart,
-  openCartDrawer,
-  closeCartDrawer
-};
