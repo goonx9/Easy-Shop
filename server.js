@@ -8,13 +8,13 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3000;
 
-// Log incoming requests for dev debugging
+// Log incoming requests for debugging
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
-// Explicit routes for major HTML pages
+// Explicit routes for GitHub Pages style routing
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -27,34 +27,18 @@ app.get('/index.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/scanner', (req, res) => {
-  res.sendFile(path.join(__dirname, 'scanner.html'));
+app.get('/jump-starter', (req, res) => {
+  res.sendFile(path.join(__dirname, 'jump-starter.html'));
 });
 
-app.get('/scanner.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'scanner.html'));
-});
-
-app.get('/jumpstarter', (req, res) => {
-  res.sendFile(path.join(__dirname, 'jumpstarter.html'));
-});
-
-app.get('/jumpstarter.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'jumpstarter.html'));
-});
-
-app.get('/carjack', (req, res) => {
-  res.sendFile(path.join(__dirname, 'carjack.html'));
-});
-
-app.get('/carjack.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'carjack.html'));
+app.get('/jump-starter.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'jump-starter.html'));
 });
 
 // Serve static files from root directory
 app.use(express.static(__dirname));
 
-// Fallback to index.html for any other unmatched routes
+// Fallback to index.html for unmatched routes
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });

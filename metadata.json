@@ -1,6 +1,6 @@
 {
-  "name": "AutoScan Pro - Premium Bluetooth Car Scanner",
-  "description": "High-conversion landing page for the next-generation AutoScan Pro Bluetooth Bluetooth diagnostic tool.",
+  "name": "EasyShop - Car Jump Starter",
+  "description": "One-product e-commerce landing page for the Car Jump Starter tailored for Nigerian customers and GitHub Pages hosting.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
