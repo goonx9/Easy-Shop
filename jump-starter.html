@@ -80,13 +80,13 @@
   <!-- Mobile Navigation Drawer -->
   <div class="mobile-nav" id="mobileNav">
     <a href="index.html" class="nav-link">Home</a>
-    <a href="#product" class="nav-link active">Select Package</a>
+    <a href="#product" class="nav-link active">Product Details</a>
     <a href="#why-you-need-it" class="nav-link">Why You Need It</a>
     <a href="#vehicles" class="nav-link">Vehicle Compatibility</a>
     <a href="#how-it-works" class="nav-link">How It Works</a>
     <a href="#videos" class="nav-link">Video Proof</a>
     <a href="#faq" class="nav-link">FAQ</a>
-    <a href="#order-form" class="btn btn-primary btn-full">ORDER NOW &bull; ₦59,900</a>
+    <a href="#order-form" class="btn btn-primary btn-full btn-mobile-cta">ORDER NOW &bull; ₦59,900</a>
   </div>
 
   <main>
@@ -138,88 +138,72 @@
                 <span>Direct Warehouse Dispatch &bull; Nigeria</span>
               </div>
 
-              <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; line-height: 1.15; margin-bottom: 0.75rem;">
+              <h1 style="font-size: 1.85rem; font-weight: 800; color: #0f172a; line-height: 1.2; margin-bottom: 0.5rem;">
                 Portable Car Jump Starter Kit
               </h1>
 
-              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
                 <div class="stars" style="margin-bottom: 0;">★★★★★</div>
-                <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">(4.9/5 from verified Nigerian drivers)</span>
+                <span style="font-size: 0.82rem; color: #64748b; font-weight: 600;">(4.9/5 from verified Nigerian drivers)</span>
               </div>
 
               <!-- Price Box -->
-              <div style="display: flex; align-items: baseline; gap: 0.85rem; margin-bottom: 1.5rem; background: #f8fafc; padding: 1rem 1.25rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <span id="productPriceDisplay" style="font-size: 2.25rem; font-weight: 800; color: #2563eb;">₦59,900</span>
-                <span id="productOrigPriceDisplay" style="font-size: 1.15rem; color: #94a3b8; text-decoration: line-through; font-weight: 600;">₦69,900</span>
-                <span style="font-size: 0.75rem; font-weight: 700; color: #16a34a; background: #dcfce7; padding: 0.25rem 0.6rem; border-radius: 9999px; margin-left: auto;">
+              <div style="display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 1.25rem; background: #f8fafc; padding: 0.85rem 1rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <span style="font-size: 1.75rem; font-weight: 800; color: #2563eb;">From ₦59,900</span>
+                <span style="font-size: 1rem; color: #94a3b8; text-decoration: line-through; font-weight: 600;">₦69,900</span>
+                <span style="font-size: 0.75rem; font-weight: 700; color: #16a34a; background: #dcfce7; padding: 0.2rem 0.5rem; border-radius: 9999px; margin-left: auto;">
                   Free Delivery
                 </span>
               </div>
 
-              <p style="color: #475569; font-size: 0.98rem; line-height: 1.6; margin-bottom: 1.5rem;">
+              <p style="color: #475569; font-size: 0.92rem; line-height: 1.55; margin-bottom: 1.25rem;">
                 The essential roadside backup device every Nigerian driver needs. Restart your vehicle swiftly during sudden battery drainage without needing a second vehicle or tow assistance.
               </p>
 
-              <!-- Variant Selector Cards -->
-              <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: #64748b; margin-bottom: 0.5rem;">Select Edition</div>
-              <div class="variant-selector">
-                <div class="variant-card selected" data-variant="standard">
-                  <div class="variant-info">
-                    <div class="variant-radio"></div>
-                    <div>
-                      <div class="variant-name">Standard Edition</div>
-                      <div class="variant-tagline">Essential emergency starting power kit</div>
-                    </div>
-                  </div>
-                  <div class="variant-price">₦59,900</div>
+              <!-- Key Features List -->
+              <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; font-size: 0.88rem; color: #334155;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="color: #16a34a; font-weight: bold;">✓</span>
+                  <span><strong>Instant 60-Second Jump Start</strong> for drained car batteries</span>
                 </div>
-
-                <div class="variant-card" data-variant="premium">
-                  <div class="variant-info">
-                    <div class="variant-radio"></div>
-                    <div>
-                      <div class="variant-name">Premium Edition</div>
-                      <div class="variant-tagline">Higher capacity multi-feature edition</div>
-                    </div>
-                  </div>
-                  <div class="variant-price">₦69,900</div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="color: #16a34a; font-weight: bold;">✓</span>
+                  <span><strong>Spark-Proof Smart Clamps</strong> with reverse polarity safety</span>
                 </div>
-              </div>
-
-              <!-- Quantity Selector -->
-              <div class="quantity-box">
-                <span style="font-size: 0.9rem; font-weight: 700; color: #0f172a;">Quantity:</span>
-                <div class="quantity-control">
-                  <button type="button" class="qty-btn" id="qtyMinus" aria-label="Decrease Quantity">&minus;</button>
-                  <span class="qty-val" id="qtyValue">1</span>
-                  <button type="button" class="qty-btn" id="qtyPlus" aria-label="Increase Quantity">&plus;</button>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="color: #16a34a; font-weight: bold;">✓</span>
+                  <span><strong>Built-in Emergency Flashlight</strong> with SOS strobe</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="color: #16a34a; font-weight: bold;">✓</span>
+                  <span><strong>Choice of Standard & Premium</strong> editions at checkout</span>
                 </div>
               </div>
 
               <!-- Direct CTA -->
-              <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
-                <a href="#order-form" class="btn btn-primary btn-lg btn-full">
-                  ORDER NOW &bull; Pay on Delivery
+              <div style="margin-bottom: 1.25rem;">
+                <a href="#order-form" class="btn btn-primary btn-full">
+                  ORDER NOW &bull; Select Edition Below
                 </a>
               </div>
 
               <!-- Trust Points -->
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.85rem; color: #64748b;">
-                <div style="display: flex; align-items: center; gap: 0.4rem;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.82rem; color: #64748b;">
+                <div style="display: flex; align-items: center; gap: 0.35rem;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>Pay on Delivery</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 0.4rem;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                <div style="display: flex; align-items: center; gap: 0.35rem;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>Free Delivery</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 0.4rem;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                  <span>Pre-Tested Hardware</span>
+                <div style="display: flex; align-items: center; gap: 0.35rem;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  <span>Pre-Tested</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 0.4rem;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                  <span>Protective Casing</span>
+                <div style="display: flex; align-items: center; gap: 0.35rem;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  <span>Hard Case</span>
                 </div>
               </div>
             </div>
@@ -707,7 +691,7 @@
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-lg btn-full pulse-btn" style="font-size: 1.15rem; padding: 1.15rem 1.5rem;">
+              <button type="submit" class="btn btn-primary btn-full btn-order-submit pulse-btn" id="submitOrderBtn">
                 ORDER NOW &bull; PAY ON DELIVERY
               </button>
 
